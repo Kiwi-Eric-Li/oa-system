@@ -8,5 +8,24 @@ export const loginRule = {
         {required: true, message: "密码不能为空"},
         {max: 16, message: "密码长度不正确"},
         {min: 4, message: "密码长度不正确"}
+    ],
+    smCodeRule: [
+        {required: true, message: '验证码不能为空'},
+        {max: 6, message: "验证码最大长度为6位"},
+        {min: 6, message: "验证码最小长度为6位"}
+    ],
+    mobileRule: [
+        {
+            validator: (rule, val, callback) => {
+                const mobileReg = /^1[3|4|5|6|7|8][0-9]\d{8}$/;
+                if(val === ""){
+                    return Promise.reject("手机号码不能为空");
+                }else if(!mobileReg.test(val)){
+                    return Promise.reject("手机号码格式不正确");
+                }else{
+                    return Promise.resolve();
+                }
+            }
+        }
     ]
 }
