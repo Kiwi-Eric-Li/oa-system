@@ -9,6 +9,13 @@
     left: 0;
     right: 0;
     margin: auto;
+    .forget_pwd_title{
+        font-size: 20px;
+        font-weight: bold;
+        color: #888;
+        text-align: center;
+        margin-bottom: 20px;
+    }
     button{
         width: 100%;
     }
@@ -45,5 +52,7 @@
     }
 }
 
-
+.reset_box{
+    height: 190px;
+}
 

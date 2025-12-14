@@ -27,5 +27,20 @@ export const loginRule = {
                 }
             }
         }
-    ]
+    ],
+    confirmPasswordRule(form){
+        return [
+            {
+                validator: (rule, val)=>{
+                    if(val === ""){
+                        return Promise.reject("确认密码不能为空")
+                    }else if(form.getFieldValue("password") !== val){
+                        return Promise.reject("两次输入的密码不相同")
+                    }else{
+                        return Promise.resolve();
+                    }
+                }
+            }
+        ]
+    }
 }
