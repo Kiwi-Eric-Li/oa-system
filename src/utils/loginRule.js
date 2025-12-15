@@ -11,8 +11,8 @@ export const loginRule = {
     ],
     smCodeRule: [
         {required: true, message: '验证码不能为空'},
-        {max: 6, message: "验证码最大长度为6位"},
-        {min: 6, message: "验证码最小长度为6位"}
+        {max: 4, message: "验证码最大长度为4位"},
+        {min: 4, message: "验证码最小长度为4位"}
     ],
     mobileRule: [
         {
