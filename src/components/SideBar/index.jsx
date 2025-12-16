@@ -6,9 +6,8 @@ import IconMap from '../IconMap';
 const { Sider } = Layout;
 
 
-export default function SideBar({routerList}){
+export default function SideBar({routerList, collapsed}){
 
-    const [collapsed, setCollapsed] = useState(false);
     const location = useLocation();
     const pathname = location.pathname;
 

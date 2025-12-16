@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {Outlet} from 'react-router-dom'
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import IconMap from '../IconMap';
 
 import SideBar from '../SideBar';
 
@@ -25,12 +25,12 @@ export default function LayoutIndex(){
 
     return (
         <Layout style={{'height': '100vh'}}>
-            <SideBar routerList={routerList}/>
+            <SideBar routerList={routerList} collapsed={collapsed} />
             <Layout>
-                <Header style={{ padding: 0}}>
+                <Header style={{ padding: 0, backgroundColor: "#fff"}}>
                 <Button
                     type="text"
-                    icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                    icon={collapsed ? IconMap.rightArrow : IconMap.leftArrow}
                     onClick={() => setCollapsed(!collapsed)}
                     style={{
                     fontSize: '16px',
@@ -40,13 +40,11 @@ export default function LayoutIndex(){
                 />
                 </Header>
                 <Content
-                style={{
-                    margin: '24px 16px',
-                    padding: 24,
-                    minHeight: 280
-                }}
-                >
-                <Outlet />
+                    style={{
+                        margin: '24px 16px',
+                        minHeight: 280
+                    }}>
+                    <Outlet />
                 </Content>
             </Layout>
         </Layout>
