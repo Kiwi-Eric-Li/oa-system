@@ -6,7 +6,7 @@ import axios from 'axios';
 const service = axios.create({
   baseURL: 'http://localhost:3000/api',
   timeout: 10000, // 请求超时时间
-  withCredentials: false, // 是否携带 cookie
+  withCredentials: true, // 是否携带 cookie
 });
 
 /**

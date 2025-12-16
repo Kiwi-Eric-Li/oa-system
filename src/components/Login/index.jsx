@@ -74,10 +74,6 @@ export default function Login(){
             const values = await form.validateFields();
             let dataOptions = {};
             if(type === 0){
-                console.log("校验通过===", values);
-                console.log("<<<<<<<<<<<<<");
-                console.log("username=", username);
-                console.log("password=", password);
                 dataOptions = {
                     "accountName": username,
                     "loginPwd": password,
@@ -91,13 +87,12 @@ export default function Login(){
                 }
             }
             
-            request.post("/user/login", dataOptions, { withCredentials: true }).then(res => {
+            request.post("/user/login", dataOptions).then(res => {
                 if(res.code === 0 && res.data != null){
-                    messageApi.open({
-                        type: 'success',
-                        content: '登录成功',
-                    });
-                    navigate("/oa");
+                    // 将返回结果放在localStorage中
+                    localStorage.setItem("userInfo", res.data);
+                    // 获取路由表
+                    getRouterList();
                 }else{
                     messageApi.open({
                         type: 'error',
@@ -120,6 +115,24 @@ export default function Login(){
         navigate("/forgetpwd");
     }
 
+    const getRouterList = () => {
+        request.get("/routerlist").then(res => {
+            // 将结果放在localStorage中
+            if(res.code === 0){
+                localStorage.setItem("routerList", res.data);
+                messageApi.open({
+                    type: 'success',
+                    content: '登录成功',
+                });
+            }
+            navigate("/oa");
+        }).catch(err => {
+            messageApi.open({
+                type: 'error',
+                content: err,
+            });
+        })
+    }
 
     return (
         <>
