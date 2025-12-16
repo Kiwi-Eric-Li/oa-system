@@ -119,7 +119,7 @@ export default function Login(){
         request.get("/routerlist").then(res => {
             // 将结果放在localStorage中
             if(res.code === 0){
-                localStorage.setItem("routerList", res.data);
+                localStorage.setItem("routerList", JSON.stringify(res.data));
                 messageApi.open({
                     type: 'success',
                     content: '登录成功',
