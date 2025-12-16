@@ -3,8 +3,9 @@ import {Outlet} from 'react-router-dom'
 import IconMap from '../IconMap';
 
 import SideBar from '../SideBar';
+import "./index.scss";
 
-import { Button, Layout } from 'antd';
+import { Button, Layout, Dropdown, Space, Avatar } from 'antd';
 const { Header, Content } = Layout;
 
 
@@ -13,6 +14,23 @@ export default function LayoutIndex(){
     const [collapsed, setCollapsed] = useState(false);
     
     const [routerList, setRouterList] = useState([]);
+
+
+    const handleExit = () => {
+        console.log("exit");
+
+    }
+    
+    const items = [
+        {
+            key: '1',
+            label: (
+                <span onClick={handleExit}>退出</span>
+            )
+        }
+    ];
+
+    
 
     useEffect(() => {
         // 获取左侧侧边栏路由表
@@ -24,26 +42,24 @@ export default function LayoutIndex(){
     }, []);
 
     return (
-        <Layout style={{'height': '100vh'}}>
+        <Layout className="layout_box">
             <SideBar routerList={routerList} collapsed={collapsed} />
             <Layout>
-                <Header style={{ padding: 0, backgroundColor: "#fff"}}>
-                <Button
-                    type="text"
-                    icon={collapsed ? IconMap.rightArrow : IconMap.leftArrow}
-                    onClick={() => setCollapsed(!collapsed)}
-                    style={{
-                    fontSize: '16px',
-                    width: 64,
-                    height: 64,
-                    }}
-                />
+                <Header className="header_box">
+                    <Button 
+                        className='collapse_icon'
+                        type="text"
+                        icon={collapsed ? IconMap.rightArrow : IconMap.leftArrow}
+                        onClick={() => setCollapsed(!collapsed)} />
+                    <Dropdown menu={{items}} className='avatar_box'>
+                        <a onClick={e => e.preventDefault()}>
+                            <Space wrap>
+                                <Avatar icon={IconMap.userIcon} />
+                            </Space>
+                        </a>
+                    </Dropdown>
                 </Header>
-                <Content
-                    style={{
-                        margin: '24px 16px',
-                        minHeight: 280
-                    }}>
+                <Content className='content_box'>
                     <Outlet />
                 </Content>
             </Layout>
