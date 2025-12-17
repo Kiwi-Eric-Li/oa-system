@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {Outlet} from 'react-router-dom'
+import {Outlet, useNavigate} from 'react-router-dom'
 import IconMap from '../IconMap';
 
 import SideBar from '../SideBar';
@@ -11,16 +11,16 @@ const { Header, Content } = Layout;
 
 
 export default function LayoutIndex(){
+    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
-    
     const [routerList, setRouterList] = useState([]);
 
 
     const handleExit = () => {
-        console.log("exit");
-
+        localStorage.clear();
+        navigate("/login");
     }
-    
+
     const items = [
         {
             key: '1',
@@ -35,7 +35,6 @@ export default function LayoutIndex(){
     useEffect(() => {
         // 获取左侧侧边栏路由表
         let routers = localStorage.getItem("routerList");
-        console.log(JSON.parse(routers));
         if(routers != null){
             setRouterList(JSON.parse(routers));
         }

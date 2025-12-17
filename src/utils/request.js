@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 /**
  * 创建 axios 实例
@@ -36,6 +37,9 @@ service.interceptors.response.use(
     if(response.headers.authorization){
         localStorage.setItem("token", response.headers.authorization);
     }
+    
+    // message.error("Token失效，请重新登录");
+    
     const res = response.data;
     if (res.code !== 0) {
       console.error(res.message || '请求失败');

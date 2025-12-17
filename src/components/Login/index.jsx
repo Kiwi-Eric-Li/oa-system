@@ -117,6 +117,7 @@ export default function Login(){
 
     const getRouterList = () => {
         request.get("/routerlist").then(res => {
+            console.log("getRouterList=========", res);
             // 将结果放在localStorage中
             if(res.code === 0){
                 localStorage.setItem("routerList", JSON.stringify(res.data));
@@ -124,8 +125,8 @@ export default function Login(){
                     type: 'success',
                     content: '登录成功',
                 });
+                navigate("/oa");
             }
-            navigate("/oa");
         }).catch(err => {
             messageApi.open({
                 type: 'error',
