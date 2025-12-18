@@ -14,11 +14,10 @@ const { Header, Content } = Layout;
 
 export default function LayoutIndex(){
     const navigate = useNavigate();
-    const collapse = useSelector(state => state.collapse.data);
-    // const [collapsed, setCollapsed] = useState(false);
+    let collapse = useSelector(state => state.collapse.data);
     const [routerList, setRouterList] = useState([]);
-
     const dispatch = useDispatch();
+
 
     const handleExit = () => {
         localStorage.clear();
@@ -58,7 +57,7 @@ export default function LayoutIndex(){
                         className='collapse_icon'
                         type="text"
                         icon={collapse ? IconMap.rightArrow : IconMap.leftArrow}
-                        onClick={handleCollapse()} />
+                        onClick={handleCollapse} />
                     <Dropdown menu={{items}} className='avatar_box'>
                         <a onClick={e => e.preventDefault()}>
                             <Space wrap>

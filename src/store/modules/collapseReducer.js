@@ -3,11 +3,11 @@ import {createSlice} from "@reduxjs/toolkit"
 const collapseStore = createSlice({
     name: 'collapse',
     initialState: {
-        flag: false
+        data: false
     },
     reducers: {
         toggleCollapse(state, action){
-            state.flag = action.payload;
+            state.data = action.payload;
         }
     }
 })

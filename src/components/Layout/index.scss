@@ -20,11 +20,9 @@
 
         .main_container{
             position:relative;
-            .table_header_container{
+            .common_container{
                 position: fixed;
-                left: 270px;
                 top: 18px;
-                width: calc(100% - 470px);
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -35,6 +33,14 @@
                 .mr_10{
                     margin-right: 10px;
                 }
+            }
+            .table_header_container{
+                left: 270px;
+                width: calc(100% - 470px);
+            }
+            .table_collapse_container{
+                left: 150px;
+                width: calc(100% - 420px);
             }
         }
     }
