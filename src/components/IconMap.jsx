@@ -16,7 +16,9 @@ import {
   MenuUnfoldOutlined,
   DatabaseOutlined,
   WalletOutlined,
-  BarChartOutlined
+  BarChartOutlined,
+  FileAddOutlined,
+  DeleteOutlined
 } from '@ant-design/icons';
 
 export default {
@@ -38,4 +40,6 @@ export default {
   rewardAndPunishment: <DatabaseOutlined />,
   signOut: <WalletOutlined />,
   'bar-chart': <BarChartOutlined />,
+  add: <FileAddOutlined />,
+  delete: <DeleteOutlined />,
 };

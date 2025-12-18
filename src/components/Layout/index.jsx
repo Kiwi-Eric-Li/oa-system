@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react'
 import {Outlet, useNavigate} from 'react-router-dom'
-import IconMap from '../IconMap';
+import {useSelector, useDispatch} from "react-redux"
 
+import IconMap from '../IconMap';
 import SideBar from '../SideBar';
 import "./index.scss";
+import {toggleCollapse} from "../../store/modules/collapseReducer"
 
 import { Button, Layout, Dropdown, Space, Avatar } from 'antd';
 const { Header, Content } = Layout;
@@ -12,9 +14,11 @@ const { Header, Content } = Layout;
 
 export default function LayoutIndex(){
     const navigate = useNavigate();
-    const [collapsed, setCollapsed] = useState(false);
+    const collapse = useSelector(state => state.collapse.data);
+    // const [collapsed, setCollapsed] = useState(false);
     const [routerList, setRouterList] = useState([]);
 
+    const dispatch = useDispatch();
 
     const handleExit = () => {
         localStorage.clear();
@@ -40,19 +44,25 @@ export default function LayoutIndex(){
         }
     }, []);
 
+    const handleCollapse = () => {
+        dispatch(toggleCollapse(!collapse));
+    }
+
+
     return (
         <Layout className="layout_box">
-            <SideBar routerList={routerList} collapsed={collapsed} />
+            <SideBar routerList={routerList} collapsed={collapse} />
             <Layout>
                 <Header className="header_box">
                     <Button 
                         className='collapse_icon'
                         type="text"
-                        icon={collapsed ? IconMap.rightArrow : IconMap.leftArrow}
-                        onClick={() => setCollapsed(!collapsed)} />
+                        icon={collapse ? IconMap.rightArrow : IconMap.leftArrow}
+                        onClick={handleCollapse()} />
                     <Dropdown menu={{items}} className='avatar_box'>
                         <a onClick={e => e.preventDefault()}>
                             <Space wrap>
+                                <span>管理员</span>
                                 <Avatar icon={IconMap.userIcon} />
                             </Space>
                         </a>
