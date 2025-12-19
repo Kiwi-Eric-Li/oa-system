@@ -3,6 +3,7 @@ import {useSelector} from "react-redux"
 
 import IconMap from "../IconMap"
 import "./index.scss"
+import Tree from "./Tree"
 
 
 export default function Department(){
@@ -13,6 +14,9 @@ export default function Department(){
 
     }
 
+    const getDepartmentDetail = (id) => {
+        console.log("department_id=", id);
+    }
 
     return (
         <div className="department_container">
@@ -22,6 +26,7 @@ export default function Department(){
                 shape="round"
                 icon={IconMap.add} 
                 onClick={openDialog}>创建</Button>
+            <Tree getDepartmentDetail={getDepartmentDetail}/>
         </div>
     )
 }
