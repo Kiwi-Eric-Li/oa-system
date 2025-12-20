@@ -7,10 +7,15 @@ import IconMap from "../IconMap"
 import "./index.scss"
 import Tree from "./Tree"
 import request from '../../utils/request';
+import Dialog from "./Dialog";
+import FormComponent from "./FormComponent";
 
 
 export default function Department(){
     const [treeData, setTreeData] = useState([]);
+    const [modalTitle, setModalTitle] = useState("创建部门");
+    const [dialogStatus, setDialogStatus] = useState(false);
+    const [modalType, setModalType] = useState("add");
 
     let collapse = useSelector(state => state.collapse.data);
 
@@ -27,7 +32,9 @@ export default function Department(){
 
 
     const openDialog = () => {
-
+        setModalTitle("创建部门");
+        setDialogStatus(true);
+        setModalType("add");
     }
 
     const getDepartmentDetail = (id) => {
@@ -43,6 +50,20 @@ export default function Department(){
                 icon={IconMap.add} 
                 onClick={openDialog}>创建</Button>
             <Tree getDepartmentDetail={getDepartmentDetail} treeData={treeData}/>
+            {/* 新增部门和部门详情对话框 */}
+            <Dialog 
+                title={modalTitle}
+                dialogStatus={dialogStatus}
+                setDialogStatus={setDialogStatus}
+                width={800}
+                className="department_detail_modal"
+                render={() => (
+                    <FormComponent />
+                )}
+            />
+
+
+
         </div>
     )
 }
