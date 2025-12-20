@@ -1,6 +1,6 @@
 import OrgTree from 'react-org-tree';
 
-export default function Tree({getDepartmentDetail}){
+export default function Tree({getDepartmentDetail, treeData}){
     const data = {
         id: -1,
         label: '公司组织架构图',
@@ -53,7 +53,7 @@ export default function Tree({getDepartmentDetail}){
 
     return (
         <OrgTree
-            data={data}
+            data={treeData}
             horizontal={false}
             collapsable={false}
             expandAll={true} 

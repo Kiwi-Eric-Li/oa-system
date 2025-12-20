@@ -117,7 +117,6 @@ export default function Login(){
 
     const getRouterList = () => {
         request.get("/routerlist").then(res => {
-            console.log("getRouterList=========", res);
             // 将结果放在localStorage中
             if(res.code === 0){
                 localStorage.setItem("routerList", JSON.stringify(res.data));
