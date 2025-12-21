@@ -22,6 +22,10 @@ import {
   CaretLeftOutlined,
   CaretRightOutlined,
   ReloadOutlined,
+  FormOutlined,
+  CopyOutlined,
+  ApiOutlined,
+  CloseCircleOutlined,
 } from '@ant-design/icons';
 
 export default {
@@ -44,8 +48,12 @@ export default {
   signOut: <WalletOutlined />,
   'bar-chart': <BarChartOutlined />,
   add: <FileAddOutlined />,
+  api: <ApiOutlined />,
   del: <DeleteOutlined />,
+  close: <CloseCircleOutlined />,
   left: <CaretLeftOutlined />,
   reload: <ReloadOutlined />,
   right: <CaretRightOutlined />,
+  detail: <FormOutlined />,
+  copy: <CopyOutlined />,
 };

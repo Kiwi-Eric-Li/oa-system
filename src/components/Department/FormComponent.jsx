@@ -1,6 +1,7 @@
 import { Form, Button, Input, Row, Descriptions } from 'antd';
 
 import {departmentRule} from "../../utils/departmentRule"
+import DepartmentList from './DepartmentList';
 
 export default function FormComponent({modalType, setDialogStatus}){
 
@@ -14,7 +15,10 @@ export default function FormComponent({modalType, setDialogStatus}){
 
     return (
         <Form form={form} onFinish={submitForm}>
-            <Descriptions column={1} bordered labelStyle={{'width': '150px'}}>
+            <Descriptions column={1} bordered styles={{
+                label: {
+                width: 150
+            }}}>
                 <Descriptions.Item label="部门名称">
                     <Form.Item name="deptName" rules={departmentRule.deptName}>
                         <Input />
@@ -25,8 +29,8 @@ export default function FormComponent({modalType, setDialogStatus}){
                         <Input />
                     </Form.Item>
                 </Descriptions.Item>
-                <Descriptions.Item label="子部门">
-
+                <Descriptions.Item label="所属部门">
+                    <DepartmentList />
                 </Descriptions.Item>
                 <Descriptions.Item label="部门负责人">
                     <Form.Item name="deptLeader" rules={departmentRule.deptLeader}>
