@@ -58,12 +58,9 @@ export default function Department(){
                 width={800}
                 className="department_detail_modal"
                 render={() => (
-                    <FormComponent />
+                    <FormComponent modalType={modalType} setDialogStatus={setDialogStatus}/>
                 )}
             />
-
-
-
         </div>
     )
 }
