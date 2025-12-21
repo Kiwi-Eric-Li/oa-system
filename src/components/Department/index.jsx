@@ -1,6 +1,6 @@
 import {Button} from "antd"
 import {useState, useEffect} from "react"
-import {useSelector} from "react-redux"
+import {useSelector, useDispatch} from "react-redux"
 import { message } from 'antd';
 
 import IconMap from "../IconMap"
@@ -9,6 +9,7 @@ import Tree from "./Tree"
 import request from '../../utils/request';
 import Dialog from "./Dialog";
 import FormComponent from "./FormComponent";
+import {setDepartment} from "../../store/modules/departmentReducer"
 
 
 export default function Department(){
@@ -16,6 +17,7 @@ export default function Department(){
     const [modalTitle, setModalTitle] = useState("创建部门");
     const [dialogStatus, setDialogStatus] = useState(false);
     const [modalType, setModalType] = useState("add");
+    const dispatch = useDispatch();
 
     let collapse = useSelector(state => state.collapse.data);
 
@@ -23,13 +25,13 @@ export default function Department(){
         request("/department").then(res => {
             if(res.code === 0){
                 setTreeData(res.data);
+                // 存储到store中
+                dispatch(setDepartment(res.data));
             }
         }).catch(err => {
             message.error(err);
         })
     }, []);
-
-
 
     const openDialog = () => {
         setModalTitle("创建部门");

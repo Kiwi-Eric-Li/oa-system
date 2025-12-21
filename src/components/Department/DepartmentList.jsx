@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {useSelector} from 'react-redux'
 import {Table, Button, Modal} from "antd"
 
 import IconMap from "../IconMap"
@@ -7,32 +8,30 @@ import AddDepartmentModel from './AddDepartmentModel';
 
 const { Column } = Table;
 export default function DepartmentList(){
-    const [delId, setDelId] = useState(0);
+    const [delId, setDelId] = useState(0); 
     const [showDelModal, setShowDelModal] = useState(false);
     const [showChildModal, setShowChildModal] = useState(false);
-
-    useEffect(()=>{
-        console.log("=======DepartmentList========")
-    }, [])
+    const [selectDept, setSelectDept] = useState([]);
+    const departmentList = useSelector(state => state.department.data);
 
     const getAllDepartments = () => {
         setShowChildModal(true);
     }
 
     const delDepartment = () => {
-        
+
     }
 
     return (
         <>
             <Table 
-                dataSource={[]} 
+                dataSource={selectDept} 
                 rowSelection={{type: 'radio', onChange: (id)=>setDelId(id)}}
                 pagination={false}
                 expandIconColumnIndex={-1}
                 rowKey={(record) => record.id}
             >
-                <Column title="名称" dataIndex="deptName" />
+                <Column title="名称" dataIndex="label" />
             </Table>
             {/* 操作按钮 */}
             <div className="operation">
@@ -44,6 +43,8 @@ export default function DepartmentList(){
             <AddDepartmentModel 
                 showChildModal={showChildModal}
                 setShowChildModal={setShowChildModal}
+                departmentList={departmentList}
+                setSelectDept={setSelectDept}
             />
 
             {/* 解除所属部门 */}
