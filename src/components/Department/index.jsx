@@ -22,6 +22,10 @@ export default function Department(){
     let collapse = useSelector(state => state.collapse.data);
 
     useEffect(() => {
+        getAllDepartments();
+    }, []);
+
+    const getAllDepartments = () => {
         request("/department").then(res => {
             if(res.code === 0){
                 setTreeData(res.data);
@@ -31,7 +35,7 @@ export default function Department(){
         }).catch(err => {
             message.error(err);
         })
-    }, []);
+    }
 
     const openDialog = () => {
         setModalTitle("创建部门");
@@ -60,7 +64,10 @@ export default function Department(){
                 width={800}
                 className="department_detail_modal"
                 render={() => (
-                    <FormComponent modalType={modalType} setDialogStatus={setDialogStatus}/>
+                    <FormComponent 
+                        modalType={modalType} 
+                        setDialogStatus={setDialogStatus} 
+                        getAllDepartments={getAllDepartments}/>
                 )}
             />
         </div>

@@ -1,16 +1,57 @@
-import { Form, Button, Input, Row, Descriptions } from 'antd';
+import { Form, Button, Input, Row, Descriptions, Select, message } from 'antd';
+import { useEffect, useState } from 'react';
 
 import {departmentRule} from "../../utils/departmentRule"
 import DepartmentList from './DepartmentList';
+import request from '../../utils/request';
 
-export default function FormComponent({modalType, setDialogStatus}){
 
+
+export default function FormComponent({modalType, setDialogStatus, getAllDepartments}){
+    const [deptLeader, setDeptLeader] = useState([]);
     const [form] = Form.useForm();
 
-    const submitForm = () => {
-
+    const submitForm = (values) => {
+        request.post("/department", {
+            "dptName": values.deptName,
+            "parentId": values.parentId.length ? values.parentId[0].id : null,
+            "remark": values.remark,
+            "deptLeader": values.deptLeader
+        }).then(res => {
+            if(res.code === 0){
+                message.success("部门添加成功");
+                setDialogStatus(false);
+                getAllDepartments();
+            }
+        }).catch(err => {
+            console.log("======err=====", err);
+        })
     }
 
+    const onChange = value => {
+        console.log(`selected ${value}`);
+    };
+    const onSearch = value => {
+        console.log('search:', value);
+    };
+
+    useEffect(()=>{
+        request.get("/staff?page=1&page_size=100000000").then(res => {
+            if(res.code === 0){
+                let result = [];
+                res.data.data.forEach(item => {
+                    let obj = {
+                        value: item.id,
+                        label: item.userName
+                    }
+                    result.push(obj);
+                });
+                setDeptLeader(result);
+            }
+        }).catch(err => {
+            console.log("err======", err);
+        })
+    }, [])
 
 
     return (
@@ -29,15 +70,19 @@ export default function FormComponent({modalType, setDialogStatus}){
                         <Input />
                     </Form.Item>
                 </Descriptions.Item>
-                <Descriptions.Item label="所属部门">
-                    <DepartmentList />
+                <Descriptions.Item label="所属部门" >
+                    <Form.Item name="parentId">
+                        <DepartmentList />
+                    </Form.Item>
                 </Descriptions.Item>
                 <Descriptions.Item label="部门负责人">
                     <Form.Item name="deptLeader" rules={departmentRule.deptLeader}>
-                        <Input 
-                            placeholder='请选择部门负责人' 
-                            readOnly 
-                            className='border_1' />
+                        <Select
+                            showSearch={{ optionFilterProp: 'label', onSearch }}
+                            placeholder="请输入查找的员工姓名"
+                            onChange={onChange}
+                            options={deptLeader}
+                        />
                     </Form.Item>
                 </Descriptions.Item>
             </Descriptions>

@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {Modal, Table} from 'antd'
 
 const {Column} = Table;
@@ -19,6 +19,8 @@ export default function AddDepartmentModel({showChildModal, setShowChildModal, d
     return (
         <Modal 
             title="添加所属部门" 
+            okText="确定"
+            cancelText="取消"
             open={showChildModal} 
             onCancel={clearSelect}
             onOk={addDepartment}

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import {useSelector} from 'react-redux'
 import {Table, Button, Modal} from "antd"
 
@@ -7,52 +7,75 @@ import "./department_list.scss"
 import AddDepartmentModel from './AddDepartmentModel';
 
 const { Column } = Table;
-export default function DepartmentList(){
-    const [delId, setDelId] = useState(0); 
+
+export default function DepartmentList({ value = [], onChange }) {
+    const [delId, setDelId] = useState(null);
     const [showDelModal, setShowDelModal] = useState(false);
     const [showChildModal, setShowChildModal] = useState(false);
-    const [selectDept, setSelectDept] = useState([]);
+
     const departmentList = useSelector(state => state.department.data);
+
+    const selectDept = value;
 
     const getAllDepartments = () => {
         setShowChildModal(true);
     }
 
     const delDepartment = () => {
-
+        onChange?.([]);        
+        setShowDelModal(false);
+        setDelId(null);
     }
 
     return (
         <>
             <Table 
-                dataSource={selectDept} 
-                rowSelection={{type: 'radio', onChange: (id)=>setDelId(id)}}
+                dataSource={selectDept}
+                rowSelection={{
+                    type: 'radio',
+                    onChange: (ids) => setDelId(ids[0])
+                }}
                 pagination={false}
                 expandIconColumnIndex={-1}
-                rowKey={(record) => record.id}
+                rowKey="id"
             >
                 <Column title="名称" dataIndex="label" />
             </Table>
-            {/* 操作按钮 */}
+
             <div className="operation">
-                <Button type="primary" onClick={getAllDepartments} style={{marginRight: '10px'}} icon={IconMap.api}>选择所属部门</Button>
-                <Button onClick={() => setShowDelModal(true)} disabled={delId} icon={IconMap.del}>解除所属部门</Button>
+                <Button
+                    type="primary"
+                    onClick={getAllDepartments} 
+                    style={{marginRight: '10px'}}
+                    icon={IconMap.api}>
+                    选择所属部门
+                </Button>
+
+                <Button
+                    onClick={() => setShowDelModal(true)} disabled={!delId} icon={IconMap.del}>
+                    解除所属部门
+                </Button>
             </div>
 
-            {/* 选择所属部门列表 */}
             <AddDepartmentModel 
                 showChildModal={showChildModal}
                 setShowChildModal={setShowChildModal}
                 departmentList={departmentList}
-                setSelectDept={setSelectDept}
+                setSelectDept={(dept) => {
+                    onChange?.(dept);
+                }}
             />
 
-            {/* 解除所属部门 */}
             <Modal 
                 title="提示" 
-                visible={showDelModal} 
-                onOk={delDepartment} 
-                onCancel={() => setShowDelModal(false)}>确定要解除所属部门吗？</Modal>
+                open={showDelModal}
+                okText="确定"
+                cancelText="取消"
+                onOk={delDepartment}
+                onCancel={() => setShowDelModal(false)}
+            >
+                确定要解除所属部门吗？
+            </Modal>
         </>
     )
 }
