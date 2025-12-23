@@ -29,7 +29,7 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
     }
 
     const onChange = value => {
-        console.log(`selected ${value}`);
+        
     };
     const onSearch = value => {
         console.log('search:', value);
@@ -82,6 +82,29 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
         }
     }, [])
 
+    const updateDepartment = (key) => {
+        if(key === 'deptName'){
+            modifyDepartment(key, 'dptName');
+        }else if(key === 'remark'){
+            modifyDepartment(key, key);
+        }
+        
+        
+    }
+
+    const modifyDepartment = (keyName, type) => {
+        request.put(`/department/${deptId}`, {
+            "type": type,
+            "updateVal": form.getFieldValue(keyName),
+            "isDelete": false
+        }).then(res => {
+            if(res.code === 0){
+                message.success("修改成功");
+            }
+            console.log("res===========", res);
+        });
+    }
+
     return (
         <Form 
             form={form} 
@@ -92,12 +115,12 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
             }}}>
                 <Descriptions.Item label="部门名称">
                     <Form.Item name="deptName" rules={departmentRule.deptName}>
-                        <Input />
+                        <Input onBlur={() => {modalType === 'update' && updateDepartment('deptName')}}/>
                     </Form.Item>
                 </Descriptions.Item>
                 <Descriptions.Item label="备注">
                     <Form.Item name="remark">
-                        <Input />
+                        <Input onBlur={() => {modalType === 'update' && updateDepartment('remark')}}/>
                     </Form.Item>
                 </Descriptions.Item>
                 <Descriptions.Item label="所属部门" >
@@ -110,7 +133,7 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
                         <Select
                             showSearch={{ optionFilterProp: 'label', onSearch }}
                             placeholder="请输入查找的员工姓名"
-                            onChange={onChange}
+                            onChange={(value) => {modalType === 'update' && onChange(value)}}
                             options={deptLeader}
                         />
                     </Form.Item>
