@@ -8,7 +8,7 @@ import AddDepartmentModel from './AddDepartmentModel';
 
 const { Column } = Table;
 
-export default function DepartmentList({ value = [], onChange }) {
+export default function DepartmentList({ value = [], onChange, modalType }) {
     const [delId, setDelId] = useState(null);
     const [showDelModal, setShowDelModal] = useState(false);
     const [showChildModal, setShowChildModal] = useState(false);
@@ -50,11 +50,12 @@ export default function DepartmentList({ value = [], onChange }) {
                     icon={IconMap.api}>
                     选择所属部门
                 </Button>
-
-                <Button
-                    onClick={() => setShowDelModal(true)} disabled={!delId} icon={IconMap.del}>
-                    解除所属部门
-                </Button>
+                {modalType !== 'add' && 
+                    <Button
+                        onClick={() => setShowDelModal(true)} disabled={!delId} icon={IconMap.del}>
+                        解除所属部门
+                    </Button>
+                }
             </div>
 
             <AddDepartmentModel 

@@ -10,6 +10,7 @@ import request from '../../utils/request';
 import Dialog from "./Dialog";
 import FormComponent from "./FormComponent";
 import {setDepartment} from "../../store/modules/departmentReducer"
+import findLabelById from "../../utils/index"
 
 
 export default function Department(){
@@ -17,9 +18,12 @@ export default function Department(){
     const [modalTitle, setModalTitle] = useState("创建部门");
     const [dialogStatus, setDialogStatus] = useState(false);
     const [modalType, setModalType] = useState("add");
+    const [deptId, setDeptId] = useState(0);
+    
     const dispatch = useDispatch();
 
     let collapse = useSelector(state => state.collapse.data);
+    let deptList = useSelector(state => state.department.data);
 
     useEffect(() => {
         getAllDepartments();
@@ -37,15 +41,23 @@ export default function Department(){
         })
     }
 
-    const openDialog = () => {
-        setModalTitle("创建部门");
+    const openDialog = (val, title="") => {
+        if(val === 'add'){
+            setModalTitle("创建部门");
+        }else{
+            setModalTitle(title);
+        }
         setDialogStatus(true);
-        setModalType("add");
+        setModalType(val);
     }
 
     const getDepartmentDetail = (id) => {
-        console.log("department_id=", id);
+        let label = findLabelById(deptList, id);
+        setDeptId(id);
+        openDialog('update', label);
     }
+
+    
 
     return (
         <div className="department_container">
@@ -54,7 +66,7 @@ export default function Department(){
                 size="small" 
                 shape="round"
                 icon={IconMap.add} 
-                onClick={openDialog}>创建</Button>
+                onClick={() => openDialog('add')}>创建</Button>
             <Tree getDepartmentDetail={getDepartmentDetail} treeData={treeData}/>
             {/* 新增部门和部门详情对话框 */}
             <Dialog 
@@ -67,7 +79,8 @@ export default function Department(){
                     <FormComponent 
                         modalType={modalType} 
                         setDialogStatus={setDialogStatus} 
-                        getAllDepartments={getAllDepartments}/>
+                        getAllDepartments={getAllDepartments} 
+                        deptId={deptId}/>
                 )}
             />
         </div>

@@ -7,7 +7,7 @@ import request from '../../utils/request';
 
 
 
-export default function FormComponent({modalType, setDialogStatus, getAllDepartments}){
+export default function FormComponent({modalType, setDialogStatus, getAllDepartments, deptId}){
     const [deptLeader, setDeptLeader] = useState([]);
     const [form] = Form.useForm();
 
@@ -35,7 +35,7 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
         console.log('search:', value);
     };
 
-    useEffect(()=>{
+    const getStaffList = () => {
         request.get("/staff?page=1&page_size=100000000").then(res => {
             if(res.code === 0){
                 let result = [];
@@ -51,11 +51,41 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
         }).catch(err => {
             console.log("err======", err);
         })
+    }
+
+    const getDepartmentDetail = (id) => {
+        request.get(`/department/${id}`).then(res => {
+            if(res.code === 0){
+                let obj = {};
+                obj['deptName'] = res.data.dptName;
+                obj['remark'] = res.data.remark;
+                obj['deptLeader'] = res.data.deptLeader;
+                if(res.data.parentDept != null){
+                    obj['parentId'] = [{
+                        'id': res.data.parentDept.id,
+                        'label': res.data.parentDept.dptName
+                    }]
+                }else{
+                    obj['parentId'] = []
+                }
+                form.setFieldsValue(obj);
+            }
+        }).catch(err=>{
+            console.log("err=========", err);
+        })
+    }
+
+    useEffect(()=>{
+        getStaffList();
+        if(modalType === 'update'){
+            getDepartmentDetail(deptId);
+        }
     }, [])
 
-
     return (
-        <Form form={form} onFinish={submitForm}>
+        <Form 
+            form={form} 
+            onFinish={submitForm}>
             <Descriptions column={1} bordered styles={{
                 label: {
                 width: 150
@@ -72,7 +102,7 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
                 </Descriptions.Item>
                 <Descriptions.Item label="所属部门" >
                     <Form.Item name="parentId">
-                        <DepartmentList />
+                        <DepartmentList modalType={modalType} />
                     </Form.Item>
                 </Descriptions.Item>
                 <Descriptions.Item label="部门负责人">
