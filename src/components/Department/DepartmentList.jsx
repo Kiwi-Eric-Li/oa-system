@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {Table, Button, Modal} from "antd"
 
@@ -8,7 +8,7 @@ import AddDepartmentModel from './AddDepartmentModel';
 
 const { Column } = Table;
 
-export default function DepartmentList({ value = [], onChange, modalType }) {
+export default function DepartmentList({ value = [], onChange, modalType, modifyDepartment }) {
     const [delId, setDelId] = useState(null);
     const [showDelModal, setShowDelModal] = useState(false);
     const [showChildModal, setShowChildModal] = useState(false);
@@ -64,6 +64,7 @@ export default function DepartmentList({ value = [], onChange, modalType }) {
                 departmentList={departmentList}
                 setSelectDept={(dept) => {
                     onChange?.(dept);
+                    modifyDepartment('parentId', 'parentId');
                 }}
             />
 

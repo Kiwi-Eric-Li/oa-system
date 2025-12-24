@@ -29,7 +29,7 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
     }
 
     const onChange = value => {
-        
+        updateDepartment("deptLeader");
     };
     const onSearch = value => {
         console.log('search:', value);
@@ -85,23 +85,30 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
     const updateDepartment = (key) => {
         if(key === 'deptName'){
             modifyDepartment(key, 'dptName');
-        }else if(key === 'remark'){
+        }else if(key === 'remark' || key === 'deptLeader'){
             modifyDepartment(key, key);
         }
-        
-        
     }
 
     const modifyDepartment = (keyName, type) => {
+        let updateVal;
+
+        if(type === 'parentId'){
+            updateVal = form.getFieldValue(keyName)[0].id;
+        }else{
+            updateVal = form.getFieldValue(keyName);
+        }
+
         request.put(`/department/${deptId}`, {
             "type": type,
-            "updateVal": form.getFieldValue(keyName),
+            "updateVal": updateVal,
             "isDelete": false
         }).then(res => {
             if(res.code === 0){
                 message.success("修改成功");
             }
-            console.log("res===========", res);
+        }).catch(err => {
+            console.log("err=============");
         });
     }
 
@@ -125,7 +132,7 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
                 </Descriptions.Item>
                 <Descriptions.Item label="所属部门" >
                     <Form.Item name="parentId">
-                        <DepartmentList modalType={modalType} />
+                        <DepartmentList modalType={modalType} modifyDepartment={modifyDepartment}/>
                     </Form.Item>
                 </Descriptions.Item>
                 <Descriptions.Item label="部门负责人">

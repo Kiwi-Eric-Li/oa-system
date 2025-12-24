@@ -73,6 +73,7 @@ export default function Department(){
                 title={modalTitle}
                 dialogStatus={dialogStatus}
                 setDialogStatus={setDialogStatus}
+                getAllDepartments={getAllDepartments}
                 width={800}
                 className="department_detail_modal"
                 render={() => (
