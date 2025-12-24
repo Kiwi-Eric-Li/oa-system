@@ -1,14 +1,15 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {useSelector} from 'react-redux'
-import {Table, Button, Modal} from "antd"
+import {Table, Button, Modal, message} from "antd"
 
 import IconMap from "../IconMap"
 import "./department_list.scss"
 import AddDepartmentModel from './AddDepartmentModel';
+import request from '../../utils/request';
 
 const { Column } = Table;
 
-export default function DepartmentList({ value = [], onChange, modalType, modifyDepartment }) {
+export default function DepartmentList({ value = [], onChange, modalType, modifyDepartment, deptId }) {
     const [delId, setDelId] = useState(null);
     const [showDelModal, setShowDelModal] = useState(false);
     const [showChildModal, setShowChildModal] = useState(false);
@@ -24,7 +25,22 @@ export default function DepartmentList({ value = [], onChange, modalType, modify
     const delDepartment = () => {
         onChange?.([]);        
         setShowDelModal(false);
+        unlinkDepartment();
         setDelId(null);
+    }
+
+    const unlinkDepartment = () => {
+        request.put(`/department/${deptId}`, {
+            "type": "parentId",
+            "updateVal": null,
+            "isDelete": true
+        }).then(res => {
+            if(res.code === 0){
+                message.success("修改成功");
+            }
+        }).catch(err => {
+            console.log("err=============");
+        });
     }
 
     return (

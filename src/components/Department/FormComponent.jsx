@@ -132,7 +132,7 @@ export default function FormComponent({modalType, setDialogStatus, getAllDepartm
                 </Descriptions.Item>
                 <Descriptions.Item label="所属部门" >
                     <Form.Item name="parentId">
-                        <DepartmentList modalType={modalType} modifyDepartment={modifyDepartment}/>
+                        <DepartmentList modalType={modalType} modifyDepartment={modifyDepartment} deptId={deptId}/>
                     </Form.Item>
                 </Descriptions.Item>
                 <Descriptions.Item label="部门负责人">
