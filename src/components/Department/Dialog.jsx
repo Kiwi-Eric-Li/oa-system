@@ -8,7 +8,15 @@ export default function Dialog({title, dialogStatus, setDialogStatus, getAllDepa
     }
 
     return (
-        <Modal width={width} title={title} open={dialogStatus} centered={true} className={className} footer={null} destroyOnHidden={true} onCancel={() => closeModal()}>
+        <Modal 
+            width={width} 
+            title={title} 
+            open={dialogStatus} 
+            centered={true} 
+            className={className} 
+            footer={null} 
+            destroyOnHidden={true} 
+            onCancel={() => closeModal()}>
             {render()}
         </Modal>
     )
