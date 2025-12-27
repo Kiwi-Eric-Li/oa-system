@@ -4,6 +4,7 @@ import "./index.scss"
 import StaffNum from "./StaffNum"
 import OldStaffTable from "./OldStaffTable";
 import Pie from "./Pie";
+import AgeColumn from "./AgeColumn";
 
 
 export default function Dashboard(){
@@ -115,7 +116,7 @@ export default function Dashboard(){
         isEmpty: true
     });
     const [ageMap, setAgeMap] = useState({
-        "title": "",
+        "title": "员工年龄段",
         "renderList": [
             {
                 "name": "20~29",
@@ -134,6 +135,26 @@ export default function Dashboard(){
                 "value": 3
             }
         ]
+    });
+
+    const [constellationList, setConstellationList] = useState({
+        "title": "员工星座分布",
+        "renderList": [
+            {
+                "name": "金牛座",
+                "value": 10
+            },
+            {
+                "name": "双子座",
+                "value": 5
+            },
+            {
+                "name": "水瓶座",
+                "value": 1
+            }
+        ],
+        styleData: {'width': '49.8%', 'height': '350px'},
+        isArray: true
     })
 
 
@@ -151,9 +172,13 @@ export default function Dashboard(){
             <Pie {...educationList} />
             {/* 员工性别占比 */}
             <Pie {...genderList} />
+            {/* 年龄柱状图 */}
+            <AgeColumn />
+
             {/* 员工婚姻状况 */}
             <Pie {...marriageCondition} />
-
+            {/* 星座分布 */}
+            <Pie {...constellationList} />
             {/* 最老的十个员工 */}
             <OldStaffTable {...staffList} />
             

@@ -1,7 +1,7 @@
 
 import ReactEChart  from 'echarts-for-react'
 
-export default function Pie({title, renderList, styleData, showSidebar=false, isEmpty=false}){
+export default function Pie({title, renderList, styleData, showSidebar=false, isEmpty=false, isArray=false}){
     console.log(title, renderList, styleData);
     const option = {
         title: {text: title, left: 'left'},
@@ -13,6 +13,7 @@ export default function Pie({title, renderList, styleData, showSidebar=false, is
             radius: isEmpty ? ['50%', '70%'] : '50%',
             center: ['55%', '55%'],
             data: renderList,
+            roseType: isArray && 'area',
             itemStyle: {
                 emphasis: {
                     shadowBlur: 10,
