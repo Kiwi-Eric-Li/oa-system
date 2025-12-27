@@ -67,7 +67,8 @@ export default function Dashboard(){
                 "value": 1
             }
         ],
-        styleData: {'width': '49.8%', 'height': '350px'}
+        styleData: {'width': '49.8%', 'height': '350px'},
+        showSidebar: true
     });
     const [genderList, setGenderList] = useState({
         "title": "员工性别占比",
@@ -81,7 +82,8 @@ export default function Dashboard(){
                 "value": 72.73
             }
         ],
-        styleData: {'width': '49.8%', 'height': '350px'}
+        styleData: {'width': '49.8%', 'height': '350px'},
+        showSidebar: true
     });
     const [averageAge, setAverageAge] = useState({
         "title": "平均年龄",
@@ -102,14 +104,15 @@ export default function Dashboard(){
         "renderList": [
             {
                 "name": "已婚",
-                "value": '50%'
+                "value": 50
             },
             {
                 "name": "未婚",
-                "value": '50%'
+                "value": 50
             }
         ],
-        styleData: {'width': '49.8%', 'height': '350px'}
+        styleData: {'width': '49.8%', 'height': '350px'},
+        isEmpty: true
     });
     const [ageMap, setAgeMap] = useState({
         "title": "",
@@ -148,6 +151,8 @@ export default function Dashboard(){
             <Pie {...educationList} />
             {/* 员工性别占比 */}
             <Pie {...genderList} />
+            {/* 员工婚姻状况 */}
+            <Pie {...marriageCondition} />
 
             {/* 最老的十个员工 */}
             <OldStaffTable {...staffList} />
