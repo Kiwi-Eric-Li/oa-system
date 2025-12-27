@@ -3,6 +3,7 @@ import { useState } from "react"
 import "./index.scss"
 import StaffNum from "./StaffNum"
 import OldStaffTable from "./OldStaffTable";
+import Pie from "./Pie";
 
 
 export default function Dashboard(){
@@ -143,6 +144,11 @@ export default function Dashboard(){
                     return <StaffNum key={key} {...item}/>
                 })
             }
+            {/* 学历情况 */}
+            <Pie {...educationList} />
+            {/* 员工性别占比 */}
+            <Pie {...genderList} />
+
             {/* 最老的十个员工 */}
             <OldStaffTable {...staffList} />
             
