@@ -173,15 +173,13 @@ export default function Dashboard(){
             {/* 员工性别占比 */}
             <Pie {...genderList} />
             {/* 年龄柱状图 */}
-            <AgeColumn />
-
+            <AgeColumn {...averageAge} />
             {/* 员工婚姻状况 */}
             <Pie {...marriageCondition} />
-            {/* 星座分布 */}
-            <Pie {...constellationList} />
             {/* 最老的十个员工 */}
             <OldStaffTable {...staffList} />
-            
+            {/* 星座分布 */}
+            <Pie {...constellationList} />
         </div>
     )
 }
