@@ -90,7 +90,7 @@ export default function Login(){
             request.post("/user/login", dataOptions).then(res => {
                 if(res.code === 0 && res.data != null){
                     // 将返回结果放在localStorage中
-                    localStorage.setItem("userInfo", res.data);
+                    localStorage.setItem("userInfo", JSON.stringify(res.data));
                     // 获取路由表
                     getRouterList();
                 }else{
@@ -124,7 +124,7 @@ export default function Login(){
                     type: 'success',
                     content: '登录成功',
                 });
-                navigate("/oa");
+                navigate("/oa/dashboard");
             }
         }).catch(err => {
             messageApi.open({

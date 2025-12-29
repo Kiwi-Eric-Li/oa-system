@@ -5,6 +5,7 @@ import StaffNum from "./StaffNum"
 import OldStaffTable from "./OldStaffTable";
 import Pie from "./Pie";
 import AgeColumn from "./AgeColumn";
+import Column from "./Column";
 
 
 export default function Dashboard(){
@@ -117,24 +118,11 @@ export default function Dashboard(){
     });
     const [ageMap, setAgeMap] = useState({
         "title": "员工年龄段",
-        "renderList": [
-            {
-                "name": "20~29",
-                "value": 3
-            },
-            {
-                "name": "30~39",
-                "value": 5
-            },
-            {
-                "name": "40~49",
-                "value": 2
-            },
-            {
-                "name": "50以上",
-                "value": 3
-            }
-        ]
+        "renderList": {
+            "xData": ["20~29", "30~39", "40~49", "50以上"],
+            "yData": [3, 5, 2, 3]
+        },
+        styleData: {'width': '49.8%', 'height': '350px'}
     });
 
     const [constellationList, setConstellationList] = useState({
@@ -158,8 +146,6 @@ export default function Dashboard(){
     })
 
 
-
-
     return (
         <div className="dashboard_box">
             {/* 员工展示组件 */}
@@ -174,6 +160,8 @@ export default function Dashboard(){
             <Pie {...genderList} />
             {/* 年龄柱状图 */}
             <AgeColumn {...averageAge} />
+            {/* 员工年龄段 */}
+            <Column {...ageMap} />
             {/* 员工婚姻状况 */}
             <Pie {...marriageCondition} />
             {/* 最老的十个员工 */}
