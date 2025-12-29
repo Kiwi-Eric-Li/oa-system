@@ -20,6 +20,10 @@
             margin-top: 10px;
             margin-bottom: 20px;
         }
+        .ant_table_wrapper{
+            flex-grow: 1;
+            overflow-y: scroll;
+        }
     }
     /* //- echarts 样式重置 */
     .react_for_echarts {
