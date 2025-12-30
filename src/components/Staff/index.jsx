@@ -5,6 +5,7 @@ import TableHeader from "../TableHeader";
 import SearchContainer from "../SearchContainer";
 import FilterForm from "../FilterForm";
 import TableList from "../TableList";
+import "./index.scss"
 
 export default function Staff(){
     const [page, setPage] = useState(1);
