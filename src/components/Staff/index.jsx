@@ -4,6 +4,7 @@ import request from '../../utils/request';
 import TableHeader from "../TableHeader";
 import SearchContainer from "../SearchContainer";
 import FilterForm from "../FilterForm";
+import TableList from "../TableList";
 
 export default function Staff(){
     const [page, setPage] = useState(1);
@@ -35,6 +36,8 @@ export default function Staff(){
                 interfaceDelMethod={"deleteStaffs"} />
             {/* 左侧搜索区域 */}
             <SearchContainer render={() => <FilterForm />}/>
+            {/* 表格数据区域 */}
+            <TableList />
         </div>
     )
 }
