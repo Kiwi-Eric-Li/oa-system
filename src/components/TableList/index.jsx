@@ -4,35 +4,16 @@ import {Table} from 'antd'
 import {EditableRow, EditableCell} from '../Editable'
 import Columns from './Columns';
 
-export default function TableList({userInfo, staffList}){
-
-    const dataSource = [
-        {
-            key: '0',
-            name: 'Edward King 0',
-            age: '32',
-            address: 'London, Park Lane no. 0',
-            auth: '管理员专项'
-        },
-        {
-            key: '1',
-            name: 'Edward King 1',
-            age: '32',
-            address: 'London, Park Lane no. 1',
-            auth: '管理员专项'
-        }
-    ];
+export default function TableList({userInfo, staffList, loading}){
 
     const handleSave = row => {
         console.log(row);
     };
 
-
-    
-
     return (
         <Table 
-            style={{'flex': 1}}
+            rowKey="id"
+            style={{'width': '100%', 'minHeight': '500px'}}
             scroll={{x: true}}
             components={{
                 body: {
@@ -41,9 +22,10 @@ export default function TableList({userInfo, staffList}){
                 },
             }}
             bordered
-            dataSource={dataSource}
+            dataSource={staffList}
             columns={Columns(handleSave, userInfo)} 
-            pagination={false}
+            pagination={false} 
+            loading={loading}
         />
     )
 }

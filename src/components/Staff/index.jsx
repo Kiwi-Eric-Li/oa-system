@@ -12,17 +12,20 @@ export default function Staff(){
     const [count, setCount] = useState(0);
     const [staffList, setStaffList] = useState([]);
     const [userInfo, setUserInfo] = useState({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         let userInfo = localStorage.getItem("userInfo");
         setUserInfo(JSON.parse(userInfo));
-
+        setLoading(true);
         request.get("/staff?page=1&page_size=10").then(res => {
             if(res.code === 0){
                 setCount(res.data.count);
                 setStaffList(res.data.data);
+                setLoading(false);
             }
         }).catch(err => {
+            setLoading(false);
             console.log("err======", err);
         })
     }, [])
@@ -42,7 +45,7 @@ export default function Staff(){
             {/* 左侧搜索区域 */}
             <SearchContainer render={() => <FilterForm />}/>
             {/* 表格数据区域 */}
-            <TableList userInfo={userInfo} staffList={staffList}/>
+            <TableList userInfo={userInfo} staffList={staffList} loading={loading}/>
         </div>
     )
 }
