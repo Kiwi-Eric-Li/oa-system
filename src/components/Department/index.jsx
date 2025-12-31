@@ -57,8 +57,6 @@ export default function Department(){
         openDialog('update', label);
     }
 
-    
-
     return (
         <div className="department_container">
             <Button 

@@ -11,8 +11,12 @@ export default function Staff(){
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(0);
     const [staffList, setStaffList] = useState([]);
+    const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
+        let userInfo = localStorage.getItem("userInfo");
+        setUserInfo(JSON.parse(userInfo));
+
         request.get("/staff?page=1&page_size=10").then(res => {
             if(res.code === 0){
                 setCount(res.data.count);
@@ -38,7 +42,7 @@ export default function Staff(){
             {/* 左侧搜索区域 */}
             <SearchContainer render={() => <FilterForm />}/>
             {/* 表格数据区域 */}
-            <TableList />
+            <TableList userInfo={userInfo} staffList={staffList}/>
         </div>
     )
 }

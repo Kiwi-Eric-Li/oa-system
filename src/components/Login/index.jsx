@@ -146,18 +146,18 @@ export default function Login(){
                     {
                         !type ? <>
                             <Form.Item name="accountName" rules={loginRule.userRule}>
-                                <Input placeholder='请输入用户名' prefix={IconMap.userIcon} value={username} onChange={(e) => setUsername(e.target.value)}/>
+                                <Input placeholder='请输入用户名' autoComplete="off" prefix={IconMap.userIcon} value={username} onChange={(e) => setUsername(e.target.value)} />
                             </Form.Item>
                             <Form.Item name="password" rules={loginRule.passwordRule}>
-                                <Input placeholder='请输入密码' type="password" prefix={IconMap.passwordIcon} value={password} onChange={(e) => setPassword(e.target.value)}/>
+                                <Input placeholder='请输入密码' autoComplete="off" type="password" prefix={IconMap.passwordIcon} value={password} onChange={(e) => setPassword(e.target.value)}/>
                             </Form.Item>
                         </> : <>
                             <Form.Item name="mobile" rules={loginRule.mobileRule}>
-                                <Input placeholder='请输入您的手机号' prefix={IconMap.mobileIcon} value={mobileNum} onChange={(e) => setMobileNum(e.target.value)}/>
+                                <Input placeholder='请输入您的手机号' autoComplete="off" prefix={IconMap.mobileIcon} value={mobileNum} onChange={(e) => setMobileNum(e.target.value)}/>
                             </Form.Item>
                             <Form.Item name="code" rules={loginRule.smCodeRule}>
                                 <Space.Compact style={{ width: '100%' }}>
-                                    <Input placeholder='请输入验证码' prefix={IconMap.smCodeIcon} value={smCode} onChange={(e) => setSmCode(e.target.value)} />
+                                    <Input placeholder='请输入验证码' autoComplete="off" prefix={IconMap.smCodeIcon} value={smCode} onChange={(e) => setSmCode(e.target.value)} />
                                     <Button onClick={sendSmCode} disabled={disabled}>{currentStatus ? '发送验证码' : `${currentTime}秒后重新发送`}</Button>
                                 </Space.Compact>
                             </Form.Item>
