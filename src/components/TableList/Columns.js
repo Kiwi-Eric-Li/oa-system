@@ -1,5 +1,7 @@
 import {Tag} from 'antd'
 
+import { formatDate } from '../../utils';
+
 export default function Columns(handleSave, userInfo){
     const normalList = [
         {
@@ -21,19 +23,33 @@ export default function Columns(handleSave, userInfo){
         {
             title: '性别',
             dataIndex: 'gender',
+            editable: true,
             render: gender => <Tag>{gender === 1 ? '男' : '女'}</Tag>
         },
         {
             title: '部门',
             dataIndex: 'department',
             render: data => data?.department || '--'
+        },
+        {
+            title: '部门负责人',
+            dataIndex: ''
+        },
+        {
+            title: '年龄',
+            dataIndex: 'idNumber',
+            width: '200px',
+            editable: true
         }
     ]
 
     const authList = [
         {
-            title: '权限',
-            dataIndex: 'auth'
+            title: '入职时间',
+            dataIndex: 'onboardingTime',
+            width: '200px',
+            editable: true,
+            render: data => formatDate(data, 'YYYY-MM-DD')
         }
     ]
 

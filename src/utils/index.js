@@ -15,3 +15,9 @@ export default function findLabelById(tree, targetId) {
 
   return null;
 }
+
+function formatDate(data){
+
+}
+
+export {formatDate}
