@@ -18,7 +18,11 @@ export default function Staff(){
         let userInfo = localStorage.getItem("userInfo");
         setUserInfo(JSON.parse(userInfo));
         setLoading(true);
-        request.get("/staff?page=1&page_size=10").then(res => {
+
+        request.post("/staff/all", {
+            "page": 1,
+            "page_size": 10
+        }).then(res => {
             if(res.code === 0){
                 setCount(res.data.count);
                 setStaffList(res.data.data);
@@ -27,7 +31,7 @@ export default function Staff(){
         }).catch(err => {
             setLoading(false);
             console.log("err======", err);
-        })
+        });
     }, [])
     
     const handleChangePage = (page) => {

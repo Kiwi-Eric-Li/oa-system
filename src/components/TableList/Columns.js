@@ -1,6 +1,6 @@
 import {Tag} from 'antd'
 
-import { formatDate } from '../../utils';
+import { getAgeByIdCard, formatDate } from '../../utils';
 
 export default function Columns(handleSave, userInfo){
     const normalList = [
@@ -17,29 +17,32 @@ export default function Columns(handleSave, userInfo){
         },
         {
             title: '职级描述',
-            dataIndex: 'level',
-            // render: (data) => data.levelDescription || '暂无职级描述'
+            dataIndex: 'levelInfo',
+            render: (data) => data.levelName || '暂无职级描述'
         },
         {
             title: '性别',
             dataIndex: 'gender',
+            width: '100px',
             editable: true,
             render: gender => <Tag>{gender === 1 ? '男' : '女'}</Tag>
         },
         {
             title: '部门',
-            dataIndex: 'department',
-            render: data => data?.department || '--'
+            dataIndex: 'dept',
+            render: data => data?.dptName || '--'
         },
         {
             title: '部门负责人',
-            dataIndex: ''
+            dataIndex: 'dept',
+            render: data => data.leader?.userName || '--'
         },
         {
             title: '年龄',
             dataIndex: 'idNumber',
-            width: '200px',
-            editable: true
+            width: '100px',
+            editable: true,
+            render: data => getAgeByIdCard(data)
         }
     ]
 
@@ -49,7 +52,7 @@ export default function Columns(handleSave, userInfo){
             dataIndex: 'onboardingTime',
             width: '200px',
             editable: true,
-            render: data => formatDate(data, 'YYYY-MM-DD')
+            render: data => formatDate(data)
         }
     ]
 
