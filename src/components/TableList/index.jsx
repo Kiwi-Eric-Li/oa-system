@@ -4,7 +4,7 @@ import {Table} from 'antd'
 import {EditableRow, EditableCell} from '../Editable'
 import Columns from './Columns';
 
-export default function TableList({userInfo, staffList, loading}){
+export default function TableList({userInfo, staffList, loading, closeStatus}){
 
     const handleSave = row => {
         console.log(row);
@@ -13,7 +13,7 @@ export default function TableList({userInfo, staffList, loading}){
     return (
         <Table 
             rowKey="id"
-            style={{'width': '100%', 'minHeight': '500px'}}
+            style={{'width': closeStatus ? 'calc(100% - 30px)' : 'calc(100% - 300px)', 'position': 'absolute', 'left': closeStatus ? '30px' : '300px'}}
             scroll={{x: true}}
             components={{
                 body: {

@@ -8,6 +8,8 @@ import TableList from "../TableList";
 import "./index.scss"
 
 export default function Staff(){
+    const [closeStatus, setCloseStatus] = useState(false);
+
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(0);
     const [staffList, setStaffList] = useState([]);
@@ -47,9 +49,9 @@ export default function Staff(){
                 changeCurrentPage={handleChangePage} 
                 interfaceDelMethod={"deleteStaffs"} />
             {/* 左侧搜索区域 */}
-            <SearchContainer render={() => <FilterForm />}/>
+            <SearchContainer closeStatus={closeStatus} setCloseStatus={setCloseStatus} render={() => <FilterForm />}/>
             {/* 表格数据区域 */}
-            <TableList userInfo={userInfo} staffList={staffList} loading={loading}/>
+            <TableList userInfo={userInfo} staffList={staffList} loading={loading} closeStatus={closeStatus}/>
         </div>
     )
 }

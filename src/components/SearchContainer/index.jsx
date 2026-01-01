@@ -1,11 +1,7 @@
-import { useState } from "react";
 import IconMap from "../IconMap";
-
 import "./index.scss"
 
-export default function SearchContainer({render}){
-
-    const [closeStatus, setCloseStatus] = useState(false);
+export default function SearchContainer({closeStatus, setCloseStatus, render}){
 
     return (
         <div className={`filter_wrapper ${closeStatus ? 'close': ''}`}>
