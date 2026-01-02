@@ -1,7 +1,8 @@
 import {Tag, Image} from 'antd'
 
-import { getAgeByIdCard, formatDate } from '../../utils';
+import { getAgeByIdCard, formatDate, genderMap, marriageMap, educationMap, getBirthdayFromIdCard } from '../../utils';
 import loadErrorImg from "../../imgs/load_error.png"
+
 
 export default function Columns(handleSave, userInfo){
     const normalList = [
@@ -19,6 +20,7 @@ export default function Columns(handleSave, userInfo){
         {
             title: '职级描述',
             dataIndex: 'levelInfo',
+            width: '100px',
             render: (data) => data.levelName || '暂无职级描述'
         },
         {
@@ -26,7 +28,7 @@ export default function Columns(handleSave, userInfo){
             dataIndex: 'gender',
             width: '100px',
             editable: true,
-            render: gender => <Tag>{gender === 1 ? '男' : '女'}</Tag>
+            render: gender => <Tag>{genderMap(gender)}</Tag>
         },
         {
             title: '部门',
@@ -36,6 +38,7 @@ export default function Columns(handleSave, userInfo){
         {
             title: '部门负责人',
             dataIndex: 'dept',
+            width: '100px',
             render: data => data.leader?.userName || '--'
         },
         
@@ -66,6 +69,27 @@ export default function Columns(handleSave, userInfo){
             dataIndex: 'hometown',
             editable: true,
             render: data => data || '--'
+        },
+        {
+            title: "学历",
+            dataIndex: "education",
+            render: data => <Tag>{educationMap(data)}</Tag>
+        },
+        {
+            title: "婚姻状况",
+            dataIndex: "marriage",
+            render: type => <Tag>{marriageMap(type)}</Tag>
+        },
+        {
+            title: '生日',
+            dataIndex: "idNumber",
+            width: '120px',
+            render: data => getBirthdayFromIdCard(data)
+        },
+        {
+            title: '银行卡号',
+            dataIndex: 'bankNumber',
+            editable: true
         }
     ]
 

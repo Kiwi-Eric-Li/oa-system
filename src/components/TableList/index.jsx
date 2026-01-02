@@ -14,7 +14,7 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
         <Table 
             rowKey="id"
             style={{'width': closeStatus ? 'calc(100% - 30px)' : 'calc(100% - 300px)', 'position': 'absolute', 'left': closeStatus ? '30px' : '300px'}}
-            scroll={{x: true}}
+            scroll={{x: 'max-content'}}
             components={{
                 body: {
                     row: EditableRow,
