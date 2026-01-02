@@ -1,6 +1,7 @@
-import {Tag} from 'antd'
+import {Tag, Image} from 'antd'
 
 import { getAgeByIdCard, formatDate } from '../../utils';
+import loadErrorImg from "../../imgs/load_error.png"
 
 export default function Columns(handleSave, userInfo){
     const normalList = [
@@ -37,13 +38,7 @@ export default function Columns(handleSave, userInfo){
             dataIndex: 'dept',
             render: data => data.leader?.userName || '--'
         },
-        {
-            title: '年龄',
-            dataIndex: 'idNumber',
-            width: '100px',
-            editable: true,
-            render: data => getAgeByIdCard(data)
-        }
+        
     ]
 
     const authList = [
@@ -53,6 +48,24 @@ export default function Columns(handleSave, userInfo){
             width: '200px',
             editable: true,
             render: data => formatDate(data)
+        },
+        {
+            title: '年龄',
+            dataIndex: 'idNumber',
+            width: '100px',
+            editable: true,
+            render: data => getAgeByIdCard(data)
+        },
+        {
+            title: '头像',
+            dataIndex: 'avatar',
+            render: img => <Image src={img || 'error'} fallback={loadErrorImg}/>
+        },
+        {
+            title: '籍贯',
+            dataIndex: 'hometown',
+            editable: true,
+            render: data => data || '--'
         }
     ]
 

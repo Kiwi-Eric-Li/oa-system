@@ -1,5 +1,9 @@
 .main_container{
-    // display: flex;
-    // align-items: flex-start;
     position: relative;
+    .ant-table-tbody{
+        .ant-image{
+            width: 50px;
+            height: 50px;
+        }
+    }
 }
