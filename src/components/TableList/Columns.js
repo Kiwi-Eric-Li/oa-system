@@ -4,7 +4,7 @@ import { getAgeByIdCard, formatDate, genderMap, marriageMap, educationMap, getBi
 import loadErrorImg from "../../imgs/load_error.png"
 
 
-export default function Columns(handleSave, userInfo){
+export default function Columns(handleSave, userInfo, openReviewRecord){
     const normalList = [
         {
             title: '姓名',
@@ -90,6 +90,44 @@ export default function Columns(handleSave, userInfo){
             title: '银行卡号',
             dataIndex: 'bankNumber',
             editable: true
+        },
+        {
+            title: '身份证号',
+            dataIndex: 'idNumber',
+            editable: true
+        },
+        {
+            title: '毕业院校',
+            dataIndex: 'graduatedSchool'
+        },
+        {
+            title: "绩效考核",
+            dataIndex: 'record',
+            render: (record, row) => {
+                return <Tag onClick={() => openReviewRecord({
+                    "title": "考核记录",
+                    "interfaceName": "getAssessmentList",
+                    "requestData": {
+                        "queryData": {
+                            "staffId": row.id
+                        }
+                    }
+                })}>查看</Tag>
+            }
+        },
+        {
+            title: "奖惩记录",
+            dataIndex: 'record',
+            render: (record, row) => {
+                return <Tag>查看</Tag>
+            }
+        },
+        {
+            title: "调薪记录",
+            dataIndex: 'record',
+            render: (record, row) => {
+                return <Tag>查看</Tag>
+            }
         }
     ]
 

@@ -117,7 +117,7 @@ function marriageMap(val){
 }
 
 function educationMap(val){
-  const educationObj = {"1": "专科", "2": "本科", "3": "硕士", "4": "博士", "5": "博士后"};
+  const educationObj = {"1": "专科", "2": "本科", "3": "硕士", "4": "博士", "5": "博士后", "6": "留学生"};
   return educationObj[val];
 }
 
