@@ -106,6 +106,7 @@ export default function Columns(handleSave, userInfo, openReviewRecord){
             render: (record, row) => {
                 return <Tag onClick={() => openReviewRecord({
                     "title": "考核记录",
+                    "type": "assessment",
                     "interfaceName": "getAssessmentList",
                     "requestData": {
                         "queryData": {
