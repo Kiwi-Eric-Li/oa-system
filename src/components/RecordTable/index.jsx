@@ -1,4 +1,5 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import {Table} from 'antd'
 
 import request from '../../utils/request';
 
@@ -31,7 +32,7 @@ export default function RecordTable({type, interfaceName, requestData}){
         ]
     }
 
-
+    const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
         initData();
@@ -41,12 +42,22 @@ export default function RecordTable({type, interfaceName, requestData}){
         request.post("/assessment/all", {
             ...requestData
         }).then(res => {
-            console.log("res====/assessment/all=====", res);
+            if(res.code === 0){
+                setTableData(res.data.data);
+            }
+        }).catch(err => {
+            console.log("err=====", err);
         })
     }
 
     return (
-        <div>record table</div>
+        <div>
+            <Table 
+                bordered
+                dataSource={tableData} 
+                columns={columnData[type]}
+            />
+        </div>
     )
 }
 

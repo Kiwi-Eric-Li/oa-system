@@ -121,5 +121,10 @@ function educationMap(val){
   return educationObj[val];
 }
 
+function rewardTypeMap(val){
+  const rewardTypeObj = {"1": "优秀员工", "2": "知识创新", "3": "通报批评", "4": "警告处分"};
+  return rewardTypeObj[val];
+}
 
-export {getAgeByIdCard, formatDate, genderMap, marriageMap, educationMap, getBirthdayFromIdCard}
+
+export {getAgeByIdCard, formatDate, genderMap, marriageMap, educationMap, getBirthdayFromIdCard, rewardTypeMap}
