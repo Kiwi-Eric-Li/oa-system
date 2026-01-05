@@ -1,7 +1,5 @@
 import {Modal} from 'antd'
 
-
-
 export default function Dialog({title, dialogStatus, render, setDialogStatus, width=600}){
     
     return (
