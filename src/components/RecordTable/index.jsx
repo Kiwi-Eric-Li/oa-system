@@ -84,12 +84,11 @@ export default function RecordTable({type, interfaceName, requestData}){
     }, [])
 
     const initData = (page=1, page_size=5) => {
-        request.post("/assessment/all", {
+        request.post(interfaceName, {
             "staff_id": requestData.queryData.staffId,
             "page": page,
             "page_size": page_size
         }).then(res => {
-            console.log("res========", res);
             if(res.code === 0){
                 setTableData(res.data.data);
                 setTotal(res.data.count);
@@ -106,6 +105,7 @@ export default function RecordTable({type, interfaceName, requestData}){
     return (
         <div>
             <Table 
+                rowKey="id"
                 bordered
                 dataSource={tableData} 
                 columns={columnData[type]} 

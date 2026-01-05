@@ -107,7 +107,7 @@ export default function Columns(handleSave, userInfo, openReviewRecord){
                 return <Tag onClick={() => openReviewRecord({
                     "title": "考核记录",
                     "type": "assessment",
-                    "interfaceName": "getAssessmentList",
+                    "interfaceName": "assessment/all",
                     "requestData": {
                         "queryData": {
                             "staffId": row.id
@@ -120,7 +120,16 @@ export default function Columns(handleSave, userInfo, openReviewRecord){
             title: "奖惩记录",
             dataIndex: 'record',
             render: (record, row) => {
-                return <Tag>查看</Tag>
+                return <Tag onClick={() => openReviewRecord({
+                    "title": "奖惩记录",
+                    "type": "reward",
+                    "interfaceName": "rewardandpunish/all",
+                    "requestData": {
+                        "queryData": {
+                            "staffId": row.id
+                        }
+                    }
+                })}>查看</Tag>
             }
         },
         {
