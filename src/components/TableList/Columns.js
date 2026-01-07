@@ -2,6 +2,7 @@ import {Tag, Image} from 'antd'
 
 import { getAgeByIdCard, formatDate, genderMap, marriageMap, educationMap, getBirthdayFromIdCard } from '../../utils';
 import loadErrorImg from "../../imgs/load_error.png"
+import {staffRule} from "../../utils/staffRule"
 
 
 export default function Columns(handleSave, userInfo, openReviewRecord){
@@ -146,12 +147,31 @@ export default function Columns(handleSave, userInfo, openReviewRecord){
         if (!col.editable) {
             return col;
         }
+
+        let type = '';
+        switch(col.dataIndex){
+            case 'onboardingTime':
+            case 'idNumber':
+                type = 'dataNode';
+                break;
+            case 'gender':
+            case 'education':
+            case 'marriage':
+                type = 'selectNode';
+                break;
+            default:
+                type = 'inputNode';
+                break;
+        }
+        
         return {
             ...col,
             onCell: record => ({
                 record,
+                type,
                 editable: col.editable,
                 dataIndex: col.dataIndex,
+                rules: staffRule[col.dataIndex],
                 title: col.title,
                 handleSave,
             }),

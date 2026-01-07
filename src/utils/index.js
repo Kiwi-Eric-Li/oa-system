@@ -97,8 +97,6 @@ function getBirthdayFromIdCard(idCard) {
   return birthday;
 }
 
-
-
 function formatDate(data){
   if(data === null || data === ""){
     return "";

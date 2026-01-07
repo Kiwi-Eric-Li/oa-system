@@ -1,6 +1,10 @@
 
 import React, {useState, useRef, useContext, useEffect} from 'react'
-import {Form, Input} from 'antd'
+import {mapData} from "../../utils/mapData"
+import {Form, Input, Select} from 'antd'
+const { Option } = Select;
+
+
 
 const EditableContext = React.createContext(null);
 export const EditableRow = ({ index, ...props }) => {
@@ -16,9 +20,11 @@ export const EditableRow = ({ index, ...props }) => {
 
 export const EditableCell = ({
   title,
+  type,
   editable,
   children,
   dataIndex,
+  rules,
   record,
   handleSave,
   ...restProps
@@ -28,7 +34,7 @@ export const EditableCell = ({
   const form = useContext(EditableContext);
   useEffect(() => {
     if (editing) {
-      inputRef.current?.focus();
+      inputRef.current && inputRef.current?.focus();
     }
   }, [editing]);
   const toggleEdit = () => {
@@ -44,15 +50,29 @@ export const EditableCell = ({
       console.log('Save failed:', errInfo);
     }
   };
+
+  const editNodeData = {
+    inputNode: <Input ref={inputRef} onPressEnter={save} onBlur={save} />,
+    selectNode: (<Select onBlur={save}>
+      {
+        mapData[dataIndex] && mapData[dataIndex].map((item, index)=>{
+          return (
+            <Option key={index} value={index}>{item}</Option>
+          )
+        })
+      }
+    </Select>)
+  }
+
   let childNode = children;
   if (editable) {
     childNode = editing ? (
       <Form.Item
         style={{ margin: 0 }}
         name={dataIndex}
-        rules={[{ required: true, message: `${title} is required.` }]}
+        rules={rules}
       >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+        {editNodeData[type]}
       </Form.Item>
     ) : (
       <div
