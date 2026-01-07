@@ -14,16 +14,13 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
 
 
     const handleSave = row => {
-        console.log(row);
+        console.log("handleSave===========", row);
     };
 
     const openReviewRecord = (record) => {
-        console.log("record=========", record);
         setDialogStatus(true);
         setCurrentRecord(record);
     }
-
-
 
     return (
         <>

@@ -151,6 +151,8 @@ export default function Columns(handleSave, userInfo, openReviewRecord){
         let type = '';
         switch(col.dataIndex){
             case 'onboardingTime':
+                type = 'dateNode';
+                break;
             case 'idNumber':
                 type = 'dataNode';
                 break;

@@ -1,7 +1,8 @@
 
 import React, {useState, useRef, useContext, useEffect} from 'react'
 import {mapData} from "../../utils/mapData"
-import {Form, Input, Select} from 'antd'
+import {Form, Input, Select, DatePicker} from 'antd'
+import dayjs from 'dayjs'
 const { Option } = Select;
 
 
@@ -37,23 +38,40 @@ export const EditableCell = ({
       inputRef.current && inputRef.current?.focus();
     }
   }, [editing]);
+
   const toggleEdit = () => {
     setEditing(!editing);
-    form.setFieldsValue({ [dataIndex]: record[dataIndex] });
-  };
-  const save = async () => {
-    try {
-      const values = await form.validateFields();
-      toggleEdit();
-      handleSave({ ...record, ...values });
-    } catch (errInfo) {
-      console.log('Save failed:', errInfo);
+
+    let value = record[dataIndex];
+
+    if (type === 'dateNode' && value) {
+      value = dayjs(value);
     }
+
+    form.setFieldsValue({
+      [dataIndex]: value
+    });
   };
+  
+  // 修改之前的检测
+  const sendBeforeCheck = async () => {
+    try{  
+      const editData = await form.validateFields([dataIndex]);
+      setEditing(!editing);
+      if(record[dataIndex] === editData[dataIndex]) return;
+      handleSave({
+        id: record.id,
+        type: dataIndex,
+        updateVal: editData[dataIndex]
+      });
+    }catch(e){
+      setEditing(!editing);
+    }
+  }
 
   const editNodeData = {
-    inputNode: <Input ref={inputRef} onPressEnter={save} onBlur={save} />,
-    selectNode: (<Select onBlur={save}>
+    inputNode: <Input ref={inputRef} onPressEnter={sendBeforeCheck} onBlur={sendBeforeCheck} />,
+    selectNode: (<Select onBlur={sendBeforeCheck}>
       {
         mapData[dataIndex] && mapData[dataIndex].map((item, index)=>{
           return (
@@ -61,7 +79,14 @@ export const EditableCell = ({
           )
         })
       }
-    </Select>)
+    </Select>),
+    dateNode: (
+      <DatePicker
+        style={{ width: '100%' }} 
+        onBlur={sendBeforeCheck}
+        onChange={sendBeforeCheck}   // 选完直接保存
+      />
+    )
   }
 
   let childNode = children;
