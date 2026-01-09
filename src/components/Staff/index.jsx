@@ -5,6 +5,7 @@ import TableHeader from "../TableHeader";
 import SearchContainer from "../SearchContainer";
 import FilterForm from "../FilterForm";
 import TableList from "../TableList";
+import DrawerComponent from "../Drawer";
 import "./index.scss"
 
 export default function Staff(){
@@ -52,6 +53,8 @@ export default function Staff(){
             <SearchContainer closeStatus={closeStatus} setCloseStatus={setCloseStatus} render={() => <FilterForm />}/>
             {/* 表格数据区域 */}
             <TableList userInfo={userInfo} staffList={staffList} loading={loading} closeStatus={closeStatus}/>
+            {/* 使用抽屉组件，展示详情 */}
+            <DrawerComponent />
         </div>
     )
 }
