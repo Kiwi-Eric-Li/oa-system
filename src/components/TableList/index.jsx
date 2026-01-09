@@ -6,16 +6,34 @@ import Columns from './Columns';
 import Dialog from '../Dialog';
 import RecordTable from '../RecordTable';
 
+import request from '../../utils/request';
+
 
 export default function TableList({userInfo, staffList, loading, closeStatus}){
 
     const [currentRecord, setCurrentRecord] = useState({});
     const [dialogStatus, setDialogStatus] = useState(false);
 
+    const openDetailDialog = (id) => {
+        console.log("openDetailDialog");
+        getStaffById(id);
+    }
 
-    const handleSave = row => {
-        console.log("handleSave===========", row);
+    const handleSave = data => {
+        console.log("handleSave===========", data);
+        if(data.type === 'mobile'){
+            const checkData = {mobile: data.updateVal};
+            // 调用接口判断手机号，是否被占用
+
+        }
+
     };
+
+    const getStaffById = (id) => {
+        request.get(`/staff/${id}`).then(res => {
+            console.log("getStaffById======res======", res);
+        });
+    }
 
     const openReviewRecord = (record) => {
         setDialogStatus(true);
@@ -36,7 +54,7 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
                 }}
                 bordered
                 dataSource={staffList}
-                columns={Columns(handleSave, userInfo, openReviewRecord)} 
+                columns={Columns(handleSave, userInfo, openReviewRecord, openDetailDialog)} 
                 pagination={false} 
                 loading={loading}
             />

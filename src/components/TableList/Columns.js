@@ -3,15 +3,26 @@ import {Tag, Image} from 'antd'
 import { getAgeByIdCard, formatDate, genderMap, marriageMap, educationMap, getBirthdayFromIdCard } from '../../utils';
 import loadErrorImg from "../../imgs/load_error.png"
 import {staffRule} from "../../utils/staffRule"
+import IconMap from '../IconMap';
 
 
-export default function Columns(handleSave, userInfo, openReviewRecord){
+export default function Columns(handleSave, userInfo, openReviewRecord, openDetailDialog){
+
     const normalList = [
         {
             title: '姓名',
             dataIndex: 'userName',
             width: '200px',
             editable: true,
+            render: (userName, {id}) => {
+                
+                return (
+                    <>
+                        <span className="user_name">{userName}</span>
+                        <span className="c_r" onClick={(e) => { e.stopPropagation();  openDetailDialog(id)}}>{IconMap.detail}</span>
+                    </>
+                )
+            }
         },
         {
             title: '联系电话',
