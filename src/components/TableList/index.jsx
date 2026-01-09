@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {Table} from 'antd'
+
 
 import {EditableRow, EditableCell} from '../Editable'
 import Columns from './Columns';
 import Dialog from '../Dialog';
 import RecordTable from '../RecordTable';
+import { setDetailModelData } from '../../store/modules/detailModelDataReducer';
 
 import request from '../../utils/request';
 
@@ -13,6 +16,7 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
 
     const [currentRecord, setCurrentRecord] = useState({});
     const [dialogStatus, setDialogStatus] = useState(false);
+    const dispatch = useDispatch();
 
     const openDetailDialog = (id) => {
         console.log("openDetailDialog");
@@ -32,6 +36,10 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
     const getStaffById = (id) => {
         request.get(`/staff/${id}`).then(res => {
             console.log("getStaffById======res======", res);
+            if(res.code === 0){
+                // 把数据存储到状态管理中
+                dispatch(setDetailModelData(res.data));
+            }
         });
     }
 
