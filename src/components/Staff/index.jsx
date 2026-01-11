@@ -46,6 +46,7 @@ export default function Staff(){
     
     const handleChangePage = (page) => {
         setPage(page);
+        getAllStaffList(page);
     }
 
     return (
