@@ -66,7 +66,8 @@ export default function Staff(){
                 title={detailModelData?.userName} 
                 interfaceName="deleteStaffs" 
                 id={detailModelData?.id} 
-                reloadList={getAllStaffList}    
+                reloadList={getAllStaffList} 
+                setPage={setPage}
                 render={() => {}}
             />
         </div>

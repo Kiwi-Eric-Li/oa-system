@@ -1,11 +1,12 @@
 import {useSelector, useDispatch} from "react-redux"
-import {Drawer, Modal} from 'antd'
+import {Drawer, message, Modal} from 'antd'
 
 import IconMap from "../IconMap";
 import "./index.scss";
 import {toggleShowDetailModel} from '../../store/modules/showDetailModelReducer';
+import request from '../../utils/request';
 
-export default function DrawerComponent({title, interfaceName, id, render, reloadList}){
+export default function DrawerComponent({title, interfaceName, id, render, setPage, reloadList}){
     let showDetailModel = useSelector(state => state.showDetailModel.data);
     let dispatch = useDispatch();
 
@@ -24,7 +25,18 @@ export default function DrawerComponent({title, interfaceName, id, render, reloa
     }
 
     const _delItem = () => {
-
+        request.post("/staff/deletestaff", {
+            "ids": [id]
+        }).then(res => {
+            if(res.code === 0){
+                closeDialog();
+                message.success("删除成功！");
+                setPage(1);
+                reloadList();
+            }
+        }).catch(err => {
+            console.log("err======", err);
+        })
     }
 
     const leftTitle = (
