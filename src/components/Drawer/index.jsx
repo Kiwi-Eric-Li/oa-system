@@ -25,7 +25,7 @@ export default function DrawerComponent({title, interfaceName, id, render, setPa
     }
 
     const _delItem = () => {
-        request.post("/staff/deletestaff", {
+        request.post(`/staff/${interfaceName}`, {
             "ids": [id]
         }).then(res => {
             if(res.code === 0){
@@ -58,7 +58,7 @@ export default function DrawerComponent({title, interfaceName, id, render, setPa
         <Drawer 
             title={leftTitle}
             placement="right"
-            size={500}
+            size={800}
             closable={false}
             open={showDetailModel} 
             extra={extra}>

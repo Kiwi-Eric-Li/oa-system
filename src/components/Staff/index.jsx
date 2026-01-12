@@ -8,6 +8,7 @@ import FilterForm from "../FilterForm";
 import TableList from "../TableList";
 import DrawerComponent from "../Drawer";
 import "./index.scss"
+import DetailForm from "./DetailForm";
 
 export default function Staff(){
     let detailModelData = useSelector(state => state.detailModelData.data);
@@ -64,11 +65,11 @@ export default function Staff(){
             {/* 使用抽屉组件，展示详情 */}
             <DrawerComponent 
                 title={detailModelData?.userName} 
-                interfaceName="deleteStaffs" 
+                interfaceName="deletestaff" 
                 id={detailModelData?.id} 
                 reloadList={getAllStaffList} 
                 setPage={setPage}
-                render={() => {}}
+                render={() => <DetailForm />}
             />
         </div>
     )
