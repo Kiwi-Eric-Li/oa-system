@@ -44,7 +44,7 @@ export default function DetailForm(){
                             arr.map((item, childIndex) => {
                                 return (
                                     <Col span={12} key={childIndex}>
-                                        <Form.Item label={item.labelTxt}>
+                                        <Form.Item label={item.labelTxt} style={{...item.style}} >
                                             {formData[item.renderType](item)}
                                         </Form.Item>
                                     </Col>
