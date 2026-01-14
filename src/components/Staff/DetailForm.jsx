@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import formList from "../../utils/staticList";
 import DropPopover from "../Droppopover";
-import { formatDate } from '../../utils';
+import { formatDate, genderMap } from '../../utils';
 import { staffRule } from '../../utils/staffRule';
 const {Option} = Select;
 
@@ -18,6 +18,7 @@ export default function DetailForm({detailModelData}){
         form.setFieldsValue({
             ...detailModelData,
             onboardingTime: detailModelData.onboardingTime ? dayjs(formatDate(detailModelData.onboardingTime)) : null,
+            gender: genderMap(detailModelData.gender)
         });
     }, [detailModelData]);
 
