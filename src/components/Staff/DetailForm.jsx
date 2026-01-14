@@ -62,7 +62,7 @@ export default function DetailForm({detailModelData}){
                             arr.map((item, childIndex) => {
                                 return (
                                     <Col span={12} key={childIndex}>
-                                        <Form.Item name={item.itemName} label={item.labelTxt} style={{...item.style}} >
+                                        <Form.Item name={item.itemName} label={item.labelTxt} style={{...item.style}} rules={staffRule[item.itemName]} >
                                             {formData[item.renderType](item)}
                                         </Form.Item>
                                     </Col>

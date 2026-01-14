@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {useDispatch} from 'react-redux';
-import {Table} from 'antd'
+import {Table, message} from 'antd'
 
 
 import {EditableRow, EditableCell} from '../Editable'
@@ -28,7 +28,21 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
         if(data.type === 'mobile'){
             const checkData = {mobile: data.updateVal};
             // 调用接口判断手机号，是否被占用
-
+            request.post("/staff/checkisexist", {
+                ...checkData
+            }).then(res => {
+                console.log("checked=========", res)
+                if(res.code === 0){
+                    if(res.data !== null){
+                        // 手机号已被占用
+                        message.warning("手机号已被占用");
+                    }else{
+                        // 手机号可用
+                    }
+                }
+            }).catch(err => {
+                console.log("err======", err);
+            })
         }
 
     };
