@@ -69,7 +69,7 @@ export default function Staff(){
                 id={detailModelData?.id} 
                 reloadList={getAllStaffList} 
                 setPage={setPage}
-                render={() => <DetailForm />}
+                render={() => <DetailForm detailModelData={detailModelData}/>}
             />
         </div>
     )
