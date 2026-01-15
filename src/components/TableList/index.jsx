@@ -35,7 +35,7 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
                 if(res.code === 0){
                     if(res.data !== null){
                         // 手机号已被占用
-                        message.warning("手机号已被占用");
+                        message.error("手机号已被占用，请更换其他手机号！");
                     }else{
                         // 手机号可用
                     }

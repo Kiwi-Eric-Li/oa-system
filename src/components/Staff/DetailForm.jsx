@@ -1,7 +1,8 @@
 import {useEffect} from 'react';
-import {Form, Row, Col, Input, Select, DatePicker} from 'antd'
+import {Form, Row, Col, Input, Select, DatePicker, message} from 'antd'
 import dayjs from 'dayjs';
 
+import request from '../../utils/request';
 import formList from "../../utils/staticList";
 import DropPopover from "../Droppopover";
 import { formatDate, genderMap } from '../../utils';
@@ -22,8 +23,42 @@ export default function DetailForm({detailModelData}){
         });
     }, [detailModelData]);
 
-    const beforeChecked = () => {
+    const beforeChecked = async (item) => {
+        const newVal = form.getFieldValue(item.itemName);
+        const oldVal = detailModelData[item.itemName];
+        try{
+            if(newVal === oldVal){
+                return ;
+            }
+            // 验证账户名和手机号
+            if(item.itemName === 'mobile' || item.itemName === 'accountName'){
+                const reqData = await form.validateFields([item.itemName]);
+                const {data} = await validateAccountNameAndMobile(reqData);
+                if(data !== null){
+                    form.setFieldsValue({[item.itemName]: detailModelData[item.itemName]});
+                    return message.error("该"+ (item.itemName === 'mobile' ? '手机号' : '账户名') +"已被占用，请更换其他"+ (item.itemName === 'mobile' ? '手机号' : '账户名') +"！");
+                }
+            }
+            _updateStaff();
+        }catch(error){
+            form.setFieldsValue({[item.itemName]: detailModelData[item.itemName]});
+        }
+    }
 
+    const _updateStaff = () => {
+
+    }
+
+    const validateAccountNameAndMobile = (data) => {
+        return request.post("/staff/checkisexist", 
+            {...data}
+        ).then(res => {
+            if(res.code === 0){
+                return res;
+            }else{
+                return Promise.reject(res.msg);
+            }
+        })
     }
 
     const formData = {
