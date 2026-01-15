@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {useDispatch} from 'react-redux';
 import {Table, message} from 'antd'
 
-
 import {EditableRow, EditableCell} from '../Editable'
 import Columns from './Columns';
 import Dialog from '../Dialog';
@@ -24,14 +23,12 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
     }
 
     const handleSave = data => {
-        console.log("handleSave===========", data);
         if(data.type === 'mobile'){
             const checkData = {mobile: data.updateVal};
             // 调用接口判断手机号，是否被占用
             request.post("/staff/checkisexist", {
                 ...checkData
             }).then(res => {
-                console.log("checked=========", res)
                 if(res.code === 0){
                     if(res.data !== null){
                         // 手机号已被占用
@@ -49,7 +46,6 @@ export default function TableList({userInfo, staffList, loading, closeStatus}){
 
     const getStaffById = (id) => {
         request.get(`/staff/${id}`).then(res => {
-            console.log("getStaffById======res======", res);
             if(res.code === 0){
                 // 把数据存储到状态管理中
                 dispatch(setDetailModelData(res.data));

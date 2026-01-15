@@ -12,6 +12,8 @@ export default function DrawerComponent({title, interfaceName, id, render, setPa
 
     const closeDialog = () => {
         dispatch(toggleShowDetailModel(false));
+        setPage(1);
+        reloadList();
     }
 
     const openModelDialog = () => {
@@ -31,8 +33,6 @@ export default function DrawerComponent({title, interfaceName, id, render, setPa
             if(res.code === 0){
                 closeDialog();
                 message.success("删除成功！");
-                setPage(1);
-                reloadList();
             }
         }).catch(err => {
             console.log("err======", err);
