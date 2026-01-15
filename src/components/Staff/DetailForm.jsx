@@ -39,14 +39,26 @@ export default function DetailForm({detailModelData}){
                     return message.error("该"+ (item.itemName === 'mobile' ? '手机号' : '账户名') +"已被占用，请更换其他"+ (item.itemName === 'mobile' ? '手机号' : '账户名') +"！");
                 }
             }
-            _updateStaff();
+            _updateStaff(item.itemName, newVal);
         }catch(error){
             form.setFieldsValue({[item.itemName]: detailModelData[item.itemName]});
         }
     }
 
-    const _updateStaff = () => {
-
+    const _updateStaff = (colName, colVal) => {
+        request.put("/staff", {
+            "staffId": detailModelData.id,
+            "staffData": {
+                [colName]: colVal,
+            }
+        }).then(res => {
+            if(res.code === 0){
+                if(res.data !== null){
+                    message.success("修改成功！");
+                }
+            }
+        })
+        
     }
 
     const validateAccountNameAndMobile = (data) => {
