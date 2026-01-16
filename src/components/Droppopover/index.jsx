@@ -6,7 +6,9 @@ const {Search} = Input;
 
 export default function DropPopover({placeholderValue, interfaceName, searchType, getSelectItem}) {
 
+    const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
+    const [list, setList] = useState([]);
 
     const changePage = (page) => {
         console.log("page====", page);
@@ -19,7 +21,7 @@ export default function DropPopover({placeholderValue, interfaceName, searchType
                 trigger="click" 
                 title={<Search placeholder={placeholderValue} />} 
                 content={
-                    <List footer={<Pagination onChange={changePage} current={1} pageSize={5} total={total} />}>
+                    <List dataSource={list} footer={<Pagination onChange={changePage} current={page} pageSize={5} total={total} />}>
                         <List.Item>1</List.Item>
                         <List.Item>2</List.Item>
                         <List.Item>3</List.Item>
