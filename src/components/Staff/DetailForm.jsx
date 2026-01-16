@@ -94,7 +94,14 @@ export default function DetailForm({detailModelData}){
                 onChange={() => beforeChecked(item)} />   
         ),
         popover: item => (
-            <Input placeholder={item.placeholderVal} readOnly addonAfter={<DropPopover />}/>
+            <Input 
+                placeholder={item.placeholderVal} 
+                readOnly 
+                addonAfter={<DropPopover 
+                                placeholderValue={item.placeholderVal} 
+                                interfaceName={item.interfaceName} 
+                                searchType={item.itemName} 
+                                getSelectItem={(item)=>{console.log("getSelectItem====", item)}}/>}/>
         ),
         upload: item => <Input placeholder="hello world" />
     }
