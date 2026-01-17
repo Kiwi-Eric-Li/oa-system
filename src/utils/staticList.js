@@ -78,7 +78,7 @@ export default [
       itemName: 'departmentName',
       placeholderVal: '请选择部门',
       labelTxt: '部门',
-      interfaceName: 'getDepartmentList',
+      interfaceName: 'department/list',
     },
     {
       renderType: 'popover',
@@ -86,7 +86,7 @@ export default [
       placeholderVal: '请选择职级',
       labelTxt: '职级',
       optionName: 'levelName',
-      interfaceName: 'getLevelList',
+      interfaceName: 'level/list',
     },
   ],
   [
