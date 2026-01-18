@@ -15,7 +15,7 @@ export default function DropPopover({placeholderValue, interfaceName, searchType
     const [searchContent, setSearchContent] = useState("");
 
     const changePage = (page) => {
-        console.log("page====", page);
+        setPage(page);
     }
 
     const onSearch = (val) => {
@@ -26,6 +26,12 @@ export default function DropPopover({placeholderValue, interfaceName, searchType
     useEffect(() => {
         getListData();
     }, [searchContent, page]);
+
+    const selectItem = (item) => {
+        setVisible(false);
+        getSelectItem(item);
+    }
+
 
     const getListData = () => {
         request.post(`/${interfaceName}`, {
@@ -47,13 +53,14 @@ export default function DropPopover({placeholderValue, interfaceName, searchType
             <Popover 
                 placeholder="bottomRight" 
                 trigger="click" 
-                visible={visible} 
+                open={visible}
+                onOpenChange={(open) => setVisible(open)}
                 title={<Search placeholder={placeholderValue} onSearch={onSearch}/>} 
                 content={
                     <List 
                         dataSource={list} 
                         renderItem={item => {
-                            return <List.Item style={{"cursor": "pointer"}}>{searchType === 'departmentName' ? item.dptName : item[searchType]}</List.Item>
+                            return <List.Item style={{"cursor": "pointer"}} onClick={(e) => {e.stopPropagation(); selectItem(item);}}>{searchType === 'departmentName' ? item.dptName : item[searchType]}</List.Item>
                         }}
                         footer={
                             <Pagination 

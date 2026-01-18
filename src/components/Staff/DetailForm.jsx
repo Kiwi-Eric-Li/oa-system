@@ -15,12 +15,13 @@ export default function DetailForm({detailModelData}){
     const [form] = Form.useForm();
     useEffect(() => {
         if (!detailModelData) return;
-
+        console.log("detailForm==============", detailModelData);
         form.setFieldsValue({
             ...detailModelData,
             onboardingTime: detailModelData.onboardingTime ? dayjs(formatDate(detailModelData.onboardingTime)) : null,
             gender: genderMap(detailModelData.gender),
-            marriage: marriageMap(detailModelData.marriage)
+            marriage: marriageMap(detailModelData.marriage),
+            dptName: detailModelData.dept?.dptName || '',
         });
     }, [detailModelData]);
 
@@ -101,7 +102,12 @@ export default function DetailForm({detailModelData}){
                                 placeholderValue={item.placeholderVal} 
                                 interfaceName={item.interfaceName} 
                                 searchType={item.itemName} 
-                                getSelectItem={(item)=>{console.log("getSelectItem====", item)}}/>}/>
+                                getSelectItem={(res)=>{
+                                    form.setFieldsValue({
+                                        "dptName": res.dptName,
+                                        "id": res.id
+                                    });
+                                }}/>}/>
         ),
         upload: item => <Input placeholder="hello world" />
     }

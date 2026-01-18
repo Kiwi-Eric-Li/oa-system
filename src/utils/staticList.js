@@ -75,7 +75,7 @@ export default [
   [
     {
       renderType: 'popover',
-      itemName: 'departmentName',
+      itemName: 'dptName',
       placeholderVal: '请选择部门',
       labelTxt: '部门',
       interfaceName: 'department/list',
