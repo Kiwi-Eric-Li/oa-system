@@ -15,7 +15,7 @@ export default function DetailForm({detailModelData}){
     const [form] = Form.useForm();
     useEffect(() => {
         if (!detailModelData) return;
-        console.log("detailForm==============", detailModelData);
+
         form.setFieldsValue({
             ...detailModelData,
             onboardingTime: detailModelData.onboardingTime ? dayjs(formatDate(detailModelData.onboardingTime)) : null,
@@ -41,7 +41,13 @@ export default function DetailForm({detailModelData}){
                     return message.error("该"+ (item.itemName === 'mobile' ? '手机号' : '账户名') +"已被占用，请更换其他"+ (item.itemName === 'mobile' ? '手机号' : '账户名') +"！");
                 }
             }
-            _updateStaff(item.itemName, newVal);
+            
+            if(item.itemName === 'dptName'){
+                item.itemName = "department";
+                _updateStaff("department", form.getFieldValue()?.departmentId);
+            }else{
+                _updateStaff(item.itemName, newVal);
+            }
         }catch(error){
             form.setFieldsValue({[item.itemName]: detailModelData[item.itemName]});
         }
@@ -105,8 +111,9 @@ export default function DetailForm({detailModelData}){
                                 getSelectItem={(res)=>{
                                     form.setFieldsValue({
                                         "dptName": res.dptName,
-                                        "id": res.id
+                                        "departmentId": res.id
                                     });
+                                    beforeChecked(item);
                                 }}/>}/>
         ),
         upload: item => <Input placeholder="hello world" />
