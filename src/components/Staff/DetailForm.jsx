@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import request from '../../utils/request';
 import formList from "../../utils/staticList";
 import DropPopover from "../Droppopover";
+import Upload from '../Upload';
 import { formatDate, genderMap, marriageMap } from '../../utils';
 import { staffRule } from '../../utils/staffRule';
 const {Option} = Select;
@@ -126,7 +127,7 @@ export default function DetailForm({detailModelData}){
                                     beforeChecked(item);
                                 }}/>}/>
         ),
-        upload: item => <Input placeholder="hello world" />
+        upload: item => <Upload avatar={item.avatar} newAvatar={() => {}}/>
     }
 
     return (
