@@ -41,10 +41,12 @@ export default function DetailForm({detailModelData}){
                     return message.error("该"+ (item.itemName === 'mobile' ? '手机号' : '账户名') +"已被占用，请更换其他"+ (item.itemName === 'mobile' ? '手机号' : '账户名') +"！");
                 }
             }
-            
             if(item.itemName === 'dptName'){
                 item.itemName = "department";
                 _updateStaff("department", form.getFieldValue()?.departmentId);
+            }else if(item.itemName === 'levelName'){
+                item.itemName = "level";
+                _updateStaff("level", form.getFieldValue()?.levelId);
             }else{
                 _updateStaff(item.itemName, newVal);
             }
@@ -109,10 +111,17 @@ export default function DetailForm({detailModelData}){
                                 interfaceName={item.interfaceName} 
                                 searchType={item.itemName} 
                                 getSelectItem={(res)=>{
-                                    form.setFieldsValue({
-                                        "dptName": res.dptName,
-                                        "departmentId": res.id
-                                    });
+                                    if(item.interfaceName === 'department/list'){
+                                        form.setFieldsValue({
+                                            "dptName": res.dptName,
+                                            "departmentId": res.id
+                                        });
+                                    }else if(item.interfaceName === 'level/list'){
+                                        form.setFieldsValue({
+                                            "levelName": res.levelName,
+                                            "levelId": res.id
+                                        });
+                                    }
                                     beforeChecked(item);
                                 }}/>}/>
         ),
