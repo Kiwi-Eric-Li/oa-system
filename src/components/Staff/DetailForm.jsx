@@ -15,13 +15,14 @@ export default function DetailForm({detailModelData}){
     const [form] = Form.useForm();
     useEffect(() => {
         if (!detailModelData) return;
-
+        
         form.setFieldsValue({
             ...detailModelData,
             onboardingTime: detailModelData.onboardingTime ? dayjs(formatDate(detailModelData.onboardingTime)) : null,
             gender: genderMap(detailModelData.gender),
             marriage: marriageMap(detailModelData.marriage),
             dptName: detailModelData.dept?.dptName || '',
+            levelName: detailModelData.levelInfo?.levelName || '',
         });
     }, [detailModelData]);
 
