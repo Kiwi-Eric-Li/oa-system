@@ -127,7 +127,7 @@ export default function DetailForm({detailModelData}){
                                     beforeChecked(item);
                                 }}/>}/>
         ),
-        upload: item => <UploadComponent avatar={item.avatar} newAvatar={() => {}}/>
+        upload: item => <UploadComponent avatar={detailModelData.avatar} newAvatar={() => {}}/>
     }
 
     return (
