@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import request from '../../utils/request';
 import formList from "../../utils/staticList";
 import DropPopover from "../Droppopover";
-import Upload from '../Upload';
+import UploadComponent from '../UploadComponent';
 import { formatDate, genderMap, marriageMap } from '../../utils';
 import { staffRule } from '../../utils/staffRule';
 const {Option} = Select;
@@ -16,7 +16,7 @@ export default function DetailForm({detailModelData}){
     const [form] = Form.useForm();
     useEffect(() => {
         if (!detailModelData) return;
-        
+        console.log("detailModelData=========", detailModelData);
         form.setFieldsValue({
             ...detailModelData,
             onboardingTime: detailModelData.onboardingTime ? dayjs(formatDate(detailModelData.onboardingTime)) : null,
@@ -127,7 +127,7 @@ export default function DetailForm({detailModelData}){
                                     beforeChecked(item);
                                 }}/>}/>
         ),
-        upload: item => <Upload avatar={item.avatar} newAvatar={() => {}}/>
+        upload: item => <UploadComponent avatar={item.avatar} newAvatar={() => {}}/>
     }
 
     return (
