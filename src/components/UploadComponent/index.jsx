@@ -11,7 +11,6 @@ export default function UploadComponent({avatar, newAvatar}){
     const [isShowModal, setIsShowModal] = useState(false);
 
     useEffect(() => {
-        console.log("avatar=========", avatar);
         if(avatar){
             setFileList([{
                 url: avatar
@@ -40,15 +39,15 @@ export default function UploadComponent({avatar, newAvatar}){
         setIsShowModal(true);
     }
 
-    const handleChange = () => {
-
+    const handleChange = (info) => {
+        console.log("info=========", info);
     }
 
     return (
         <>
             <Upload 
                 maxCount={1}
-                action="https://up-z1.qiniu.com/"
+                action="https://up-z2.qiniup.com/"
                 listType="picture-card"
                 fileList={fileList}
                 data={{token: token}}
