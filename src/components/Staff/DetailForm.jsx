@@ -16,7 +16,7 @@ export default function DetailForm({detailModelData}){
     const [form] = Form.useForm();
     useEffect(() => {
         if (!detailModelData) return;
-        console.log("detailModelData=========", detailModelData);
+        
         form.setFieldsValue({
             ...detailModelData,
             onboardingTime: detailModelData.onboardingTime ? dayjs(formatDate(detailModelData.onboardingTime)) : null,
